@@ -13,41 +13,31 @@
 
 ---
 
-## 🚀 Usage
-
-### CLI
-```bash
-storysmith npc --race elf --char-class rogue --tone dark
-```
-
-### Web API
-```bash
-GET /npc?race=elf&char_class=rogue&tone=dark
-```
-
-Run locally:
-```bash
-poetry run uvicorn web.main:app --reload
-```
-
 ---
 
-## 🛠️ Install
+## 🛠️ Installation and Usage
 
 ```bash
 git clone https://github.com/your-username/storysmith.git
 cd storysmith
 poetry install
+pip install "fastapi[standard]"
+pip install openai
+pip install typer
+pip install
 ```
 
 Set your OpenAI API key:
 ```bash
-export OPENAI_API_KEY=your-key
+in file generators/openai.py
 ```
 
 Run the CLI:
 ```bash
-poetry run python cli.py npc --race elf --char-class rogue --tone dark
+poetry env activate
+poetry run python main.py
+
+example with parameters: poetry run python main.py --race elf --char-class rogue --tone dark --genre fantasy  
 ```
 
 Run the Web UI:

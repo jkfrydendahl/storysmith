@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from storysmith.prompts.npc import generate_npc
+from promts.npc import generate_npc
 
 app = FastAPI()
 
@@ -13,6 +13,6 @@ app.add_middleware(
 )
 
 @app.get("/npc")
-def get_npc(race: str = Query("human"), char_class: str = Query("fighter"), tone: str = Query("neutral")):
-    result = generate_npc(race, char_class, tone)
+def get_npc(race: str = Query("human"), char_class: str = Query("fighter"), tone: str = Query("neutral"), genre: str = Query("fantasy")):
+    result = generate_npc(race, char_class, tone, genre)
     return {"npc": result}

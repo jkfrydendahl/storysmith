@@ -1,7 +1,7 @@
 import os
 import openai
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = "#"
 
 def call_openai(prompt: str) -> str:
     response = openai.ChatCompletion.create(
