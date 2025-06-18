@@ -20,6 +20,7 @@ Prerequisites:
 - Python 3.11 or newer. Download from https://www.python.org/downloads/
 - OpenAI API Key. More info: https://platform.openai.com/docs/overview
 
+Installation:
 ```bash
 git clone https://github.com/JesperKF311/storysmith.git
 cd storysmith
