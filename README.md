@@ -9,7 +9,6 @@
 - 🔮 Prompt-based generation for RPG elements
 - 💻 CLI-first, with pluggable model backends
 - 🧱 Clean code and extensible architecture
-- ⚖️ DevEx-friendly: built with testing, linting, CI
 
 ---
 
