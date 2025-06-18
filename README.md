@@ -25,11 +25,13 @@ pip install "fastapi[standard]"
 pip install openai
 pip install typer
 pip install react
+pip install python-dotenv
 ```
 
 Set your OpenAI API key:
 ```bash
-setx OPENAI_API_KEY "your-api-key"
+set OPENAI_API_KEY in .env file
+(exluded in .gitignore to not reveal secrets)
 ```
 
 Run the CLI:
