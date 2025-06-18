@@ -1,6 +1,6 @@
 # 🎩 Storysmith
 
-**Storysmith** is a modular, AI-powered storytelling toolkit for tabletop RPG creators. Generate rich characters, locations, items, and more — through a simple CLI or API.
+**Storysmith** is a modular, AI-powered storytelling toolkit for tabletop RPG creators. Generate rich characters, locations, items, and more — through a simple CLI or API. See roadmap at the bottom for status on feature implementation.
 
 ---
 
@@ -55,8 +55,15 @@ open frontend/index.html in browser
 
 ## 🔍 Roadmap
 
+Solution:
 - [x] Web UI (FastAPI API backend)
 - [x] Frontend UI (HTML and JS)
 - [ ] Local model support (e.g., Ollama)
 - [ ] Prompt customization via YAML/JSON
 - [ ] Campaign export to Obsidian/Markdown
+
+Features:
+- [x] Characters
+- [] Locations
+- [] Items
+- [] Regions
