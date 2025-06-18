@@ -24,32 +24,26 @@ poetry install
 pip install "fastapi[standard]"
 pip install openai
 pip install typer
-pip install
+pip install react
 ```
 
 Set your OpenAI API key:
 ```bash
-in file generators/openai.py
+setx OPENAI_API_KEY "your-api-key"
 ```
 
 Run the CLI:
 ```bash
-poetry env activate
 poetry run python main.py
 
-example with parameters: poetry run python main.py --race elf --char-class rogue --tone dark --genre fantasy  
+//example with parameters: 
+poetry run python main.py --race elf --char-class rogue --tone dark --genre fantasy  
 ```
 
-Run the Web UI:
+Run the web UI:
 ```bash
 poetry run uvicorn web.main:app --reload
-```
-
-To use the frontend:
-```bash
-cd frontend
-npm install
-npm run dev
+open frontend/index.html in browser
 ```
 
 ---

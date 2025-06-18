@@ -1,8 +1,14 @@
+import os
+import uvicorn
 from fastapi import FastAPI, Query
+from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from promts.npc import generate_npc
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 app.add_middleware(
     CORSMiddleware,
@@ -12,7 +18,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get('/', response_class=PlainTextResponse)
+def default():
+    return (
+        "Welcome to *Storysmith*\n" 
+        "- a modular, AI-powered storytelling toolkit for tabletop RPG creators.\n"
+        "Generate rich characters, locations, items, and more — through a simple CLI or API.\n"
+        "\n"
+        "To generate an NPC, go to '/npc' endpoint.\n"
+        "\n"
+        "More features coming soon!\n"
+    )
+
+@app.get('/favicon.ico')
+async def favicon():
+    file_name = "favicon.ico"
+    file_path = os.path.join(app.root_path, file_name)
+    return FileResponse(path=file_path, headers={"Content-Disposition": "attachment; filename=" + file_name})
+
 @app.get("/npc")
 def get_npc(race: str = Query("human"), char_class: str = Query("fighter"), tone: str = Query("neutral"), genre: str = Query("fantasy")):
     result = generate_npc(race, char_class, tone, genre)
     return {"npc": result}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
