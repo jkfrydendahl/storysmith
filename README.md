@@ -56,7 +56,7 @@ open frontend/index.html in browser
 ## 🔍 Roadmap
 
 - [x] Web UI (FastAPI API backend)
-- [x] Frontend UI (React + Vite)
+- [x] Frontend UI (HTML and JS)
 - [ ] Local model support (e.g., Ollama)
 - [ ] Prompt customization via YAML/JSON
 - [ ] Campaign export to Obsidian/Markdown
