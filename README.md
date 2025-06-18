@@ -17,8 +17,11 @@
 
 ## 🛠️ Installation and Usage
 
+Prerequisite: Python 3.11 or newer.
+Download from https://www.python.org/downloads/
+
 ```bash
-git clone https://github.com/your-username/storysmith.git
+git clone https://github.com/JesperKF311/storysmith.git
 cd storysmith
 poetry install
 pip install "fastapi[standard]"
@@ -30,11 +33,11 @@ pip install python-dotenv
 
 Set your OpenAI API key:
 ```bash
-set OPENAI_API_KEY in .env file
-(exluded in .gitignore to not reveal secrets)
+//set OPENAI_API_KEY in .env file
+//(exluded in .gitignore to not reveal secrets)
 ```
 
-Run the CLI:
+Run the CLI in terminal:
 ```bash
 poetry run python main.py
 
