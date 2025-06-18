@@ -33,8 +33,8 @@ pip install python-dotenv
 
 Set your OpenAI API key:
 ```bash
-//set OPENAI_API_KEY in .env file
-//(exluded in .gitignore to not reveal secrets)
+set OPENAI_API_KEY in .env file
+(exluded in .gitignore to not reveal secrets)
 ```
 
 Run the CLI in terminal:
