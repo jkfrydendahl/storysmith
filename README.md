@@ -64,6 +64,6 @@ Solution:
 
 Features:
 - [x] Characters
-- [] Locations
-- [] Items
-- [] Regions
+- [ ] Locations
+- [ ] Items
+- [ ] Regions
