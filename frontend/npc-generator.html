@@ -20,6 +20,10 @@
       <input type="text" id="race" value="human">
     </label>
     <label>
+      Gender:
+      <input type="text" id="gender" value="female">
+    </label>
+    <label>
       Class:
       <input type="text" id="char_class" value="fighter">
     </label>
@@ -37,6 +41,7 @@
     <script>
   async function generateNpc() {
     const race = document.getElementById('race').value;
+    const gender = document.getElementById('gender').value;
     const charClass = document.getElementById('char_class').value;
     const tone = document.getElementById('tone').value;
     const genre = document.getElementById('genre').value;
@@ -49,7 +54,7 @@
     button.textContent = "Generating...";
 
     try {
-      const params = new URLSearchParams({ race, char_class: charClass, tone, genre });
+      const params = new URLSearchParams({ race: race, gender: gender, char_class: charClass, tone: tone, genre:genre });
       const res = await fetch(`http://localhost:8000/npc?${params}`);
       const data = await res.json();
       output.textContent = data.npc;

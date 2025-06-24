@@ -37,8 +37,8 @@ async def favicon():
     return FileResponse(path=file_path, headers={"Content-Disposition": "attachment; filename=" + file_name})
 
 @app.get("/npc")
-def get_npc(race: str = Query("human"), char_class: str = Query("fighter"), tone: str = Query("neutral"), genre: str = Query("fantasy")):
-    result = generate_npc(race, char_class, tone, genre)
+def get_npc(race: str = Query("human"), gender = Query("female"), char_class: str = Query("fighter"), tone: str = Query("neutral"), genre: str = Query("fantasy")):
+    result = generate_npc(race, gender, char_class, tone, genre)
     return {"npc": result}
 
 if __name__ == "__main__":
