@@ -12,8 +12,6 @@
 
 ---
 
----
-
 ## 🛠️ Installation and Usage
 
 Prerequisites: 
