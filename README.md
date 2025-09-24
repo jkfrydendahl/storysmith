@@ -47,7 +47,8 @@ poetry run python main.py --race elf --gender male --char-class rogue --tone dar
 Run the web UI:
 ```bash
 poetry run uvicorn web.main:app --reload
-open frontend/index.html in browser
+wait for the application startup to complete
+navigate to the /frontend folder and open index.html in your browser of choice
 ```
 
 ---
