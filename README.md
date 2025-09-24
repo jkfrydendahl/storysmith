@@ -59,6 +59,7 @@ poetry run uvicorn web.main:app --reload
 
 # wait for the application startup to complete
 # navigate to the ***/frontend*** folder and open ***index.html*** in your browser of choice
+
 # note: to stop the web app, navigate to your terminal and press CTRL+C
 ```
 
