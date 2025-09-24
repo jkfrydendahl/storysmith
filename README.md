@@ -82,7 +82,7 @@ Solution:
 - [ ] History/search functionality
 - [ ] Randomization controls
 
-Features
+Features:
 - [x] Characters
 - [x] Locations
 - [x] Items
