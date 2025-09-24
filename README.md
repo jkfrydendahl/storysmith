@@ -66,7 +66,7 @@ Solution:
 Features
 - [x] Characters
 - [x] Locations
-- [ ] Items
+- [x] Items
 - [ ] Regions
 - [ ] Adventures
 - [ ] Events
