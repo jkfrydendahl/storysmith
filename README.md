@@ -61,8 +61,13 @@ Solution:
 - [ ] Prompt customization via YAML/JSON
 - [ ] Campaign export to Obsidian/Markdown
 
-Features:
+Features
 - [x] Characters
-- [ ] Locations
+- [x] Locations
 - [ ] Items
 - [ ] Regions
+- [ ] Adventures
+- [ ] Events
+- [ ] Organizations
+- [ ] Treasure
+- [ ] Weather
