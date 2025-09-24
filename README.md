@@ -22,7 +22,7 @@ Installation:
 ```bash
 git clone https://github.com/JesperKF311/storysmith.git
 
-# cd to storysmith repo folder and run:
+# cd to storysmith repo folder and run (in order):
 poetry install
 pip install "fastapi[standard]"
 pip install openai
@@ -33,8 +33,10 @@ pip install python-dotenv
 
 Set your OpenAI API key:
 ```bash
+# create .env file in the storysmith root folder (exluded in .gitignore to not reveal secrets)
 # set your OPENAI_API_KEY in .env file
-# (exluded in .gitignore to not reveal secrets)
+# file format: .env, contents: OPENAI_API_KEY=your-key-here
+# to create your API key, go to https://platform.openai.com/api-keys
 ```
 
 Run the CLI in terminal:
