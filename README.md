@@ -20,6 +20,7 @@ Prerequisites:
 
 Installation:
 ```bash
+# clone this repo
 git clone https://github.com/JesperKF311/storysmith.git
 
 # cd to storysmith root (repo) folder and run (in order):
