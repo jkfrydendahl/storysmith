@@ -9,8 +9,8 @@
 ## ✨ Features
 
 - 🔮 Prompt-based generation for RPG elements
-- 💻 CLI-first, with pluggable model backends
 - 🧱 Clean code and extensible architecture
+- 💻 CLI-first, with pluggable model backends
 
 <br>
 
