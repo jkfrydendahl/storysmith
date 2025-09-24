@@ -4,6 +4,7 @@
 
 ---
 <br>
+
 ## ✨ Features
 
 - 🔮 Prompt-based generation for RPG elements
@@ -12,6 +13,7 @@
 
 ---
 <br>
+
 ## 🛠️ Installation and Usage
 
 Prerequisites: 
@@ -65,6 +67,7 @@ poetry run uvicorn web.main:app --reload
 
 ---
 <br>
+
 ## 🔍 Roadmap
 
 Solution:
