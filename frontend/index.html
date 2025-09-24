@@ -3,20 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Storysmith</title>
-    <style>
-      body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2rem; }
-      ul { padding-left: 1.2rem; }
-      a { text-decoration: none; color: #0066cc; }
-    </style>
+    <title>Storysmith - AI RPG Content Generator</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Storysmith</h1>
-    <p>Select a generator:</p>
-    <ul>
-      <li><a href="character-generator.html">Character Generator</a></li>
-      <li><a href="location-generator.html">Location Generator</a></li>
-      <li><a href="item-generator.html">Item Generator</a></li>
-    </ul>
+    <div class="container">
+      <h1>🎩 Storysmith</h1>
+      <p class="subtitle">AI-powered storytelling toolkit for tabletop RPG creators</p>
+      
+      <div class="generators">
+        <a href="character-generator.html" class="generator-card">
+          <div class="generator-title">👤 Character Generator</div>
+          <div class="generator-description">Create unique NPCs with backstories, motivations, and distinctive traits</div>
+        </a>
+        
+        <a href="location-generator.html" class="generator-card">
+          <div class="generator-title">🏛️ Location Generator</div>
+          <div class="generator-description">Generate detailed locations with atmosphere, features, and hidden secrets</div>
+        </a>
+        
+        <a href="item-generator.html" class="generator-card">
+          <div class="generator-title">⚔️ Item Generator</div>
+          <div class="generator-description">Craft magical items, weapons, and artifacts with stats and lore</div>
+        </a>
+      </div>
+    </div>
   </body>
 </html>

@@ -3,83 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Storysmith - Location Generator</title>
-    <style>
-      body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2rem; }
-      label { display: block; margin-top: 1rem; }
-      input { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
-      button { margin-top: 1rem; padding: 0.5rem 1rem; }
-      pre { background: #f4f4f4; padding: 1rem; white-space: pre-wrap; }
-      .back-link { margin-bottom: 1rem; }
-      .back-link a { text-decoration: none; color: #0066cc; }
-      .tip { font-size: 0.9em; color: #666; margin-bottom: 1.5rem; }
-    </style>
+    <title>Location Generator - Storysmith</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="back-link">
-      <a href="index.html">← Back to Storysmith</a>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>🗺️ Location Generator</h1>
+      <div class="tip">Fill in any fields you want to customize, or leave blank for random results.</div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="location_type">Type</label>
+          <input type="text" id="location_type" placeholder="tavern, shop, temple, dungeon, ruins, etc.">
+        </div>
+        <div>
+          <label for="size">Size</label>
+          <input type="text" id="size" placeholder="small, medium, large">
+        </div>
+        <div>
+          <label for="setting">Setting</label>
+          <input type="text" id="setting" placeholder="city, wilderness, underground, coastal, etc.">
+        </div>
+        <div>
+          <label for="tone">Atmosphere</label>
+          <input type="text" id="tone" placeholder="posh, dirty, welcoming, abandoned, mysterious, luxurious, etc.">
+        </div>
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, steampunk, etc.">
+        </div>
+      </div>
+      
+      <button class="generate-btn" onclick="generateLocation()">Generate Location</button>
+      <div class="output waiting" id="output">Waiting for input... Click "Generate Location" to create a location.</div>
     </div>
-    
-    <h1>Storysmith Location Generator</h1>
-    <p class="tip"><em>Tip: Fill in any fields you want to customize, or leave blank for random results.</em></p>
-    <label>
-      Type:
-      <input type="text" id="location_type" placeholder="tavern, shop, temple, dungeon, ruins, etc.">
-    </label>
-    <label>
-      Size:
-      <input type="text" id="size" placeholder="small, medium, large">
-    </label>
-    <label>
-      Setting:
-      <input type="text" id="setting" placeholder="city, wilderness, underground, coastal, etc.">
-    </label>
-    <label>
-      Atmosphere:
-      <input type="text" id="tone" placeholder="posh, dirty, welcoming, abandoned, mysterious, luxurious, etc.">
-    </label>
-    <label>
-      Genre:
-      <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, steampunk, etc.">
-    </label>
-    <button onclick="generateLocation()">Generate</button>
-    <pre id="output">Waiting for input... Click "Generate" to create a location.</pre>
 
     <script>
-  async function generateLocation() {
-    const locationType = document.getElementById('location_type').value;
-    const size = document.getElementById('size').value;
-    const setting = document.getElementById('setting').value;
-    const tone = document.getElementById('tone').value;
-    const genre = document.getElementById('genre').value;
-    const output = document.getElementById('output');
-    const button = document.querySelector('button');
+      async function generateLocation() {
+        const locationType = document.getElementById('location_type').value;
+        const size = document.getElementById('size').value;
+        const setting = document.getElementById('setting').value;
+        const tone = document.getElementById('tone').value;
+        const genre = document.getElementById('genre').value;
+        const output = document.getElementById('output');
+        const button = document.querySelector('.generate-btn');
 
-    // Set loading state
-    output.textContent = "Generating location...";
-    button.disabled = true;
-    button.textContent = "Generating...";
+        // Set loading state
+        output.textContent = "✨ Crafting your location...";
+        output.className = 'output loading';
+        button.disabled = true;
+        button.textContent = "Generating...";
 
-    try {
-      const params = new URLSearchParams({ 
-        location_type: locationType, 
-        size: size, 
-        setting: setting, 
-        tone: tone, 
-        genre: genre 
+        try {
+          const params = new URLSearchParams({ 
+            location_type: locationType, 
+            size: size, 
+            setting: setting, 
+            tone: tone, 
+            genre: genre 
+          });
+          const res = await fetch(`http://localhost:8000/location?${params}`);
+          
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          
+          const data = await res.json();
+          output.textContent = data.location;
+          output.className = 'output';
+        } catch (err) {
+          output.textContent = "❌ Error generating location. Please check that the server is running and try again.";
+          output.className = 'output error';
+          console.error('Generation error:', err);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Location";
+        }
+      }
+
+      // Add keyboard support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !document.querySelector('.generate-btn').disabled) {
+          generateLocation();
+        }
       });
-      const res = await fetch(`http://localhost:8000/location?${params}`);
-      const data = await res.json();
-      output.textContent = data.location;
-    } catch (err) {
-      output.textContent = "Error generating location. Please try again.";
-      console.error(err);
-    } finally {
-      // Reset button state
-      button.disabled = false;
-      button.textContent = "Generate";
-    }
-  }
-</script>
+    </script>
   </body>
 </html>

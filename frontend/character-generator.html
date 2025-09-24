@@ -3,48 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Storysmith</title>
-    <script defer src="main.js"></script>
-    <style>
-      body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2rem; }
-      label { display: block; margin-top: 1rem; }
-      input { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
-      button { margin-top: 1rem; padding: 0.5rem 1rem; }
-      pre { background: #f4f4f4; padding: 1rem; white-space: pre-wrap; }
-      .back-link { margin-bottom: 1rem; }
-      .back-link a { text-decoration: none; color: #0066cc; }
-      .tip { font-size: 0.9em; color: #666; margin-bottom: 1.5rem; }
-    </style>
+    <title>Character Generator - Storysmith</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="back-link">
-      <a href="index.html">← Back to Storysmith</a>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>👤 Character Generator</h1>
+      
+      <div class="tip">
+        Fill in any fields you want to customize, or leave blank for random results.
+      </div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="race">Race</label>
+          <input type="text" id="race" placeholder="human, elf, dwarf, halfling, orc, tiefling, dragonborn, etc.">
+        </div>
+        
+        <div>
+          <label for="gender">Gender</label>
+          <input type="text" id="gender" placeholder="male, female, non-binary, etc.">
+        </div>
+        
+        <div>
+          <label for="char_class">Class</label>
+          <input type="text" id="char_class" placeholder="fighter, wizard, rogue, cleric, bard, ranger, etc.">
+        </div>
+        
+        <div>
+          <label for="tone">Tone</label>
+          <input type="text" id="tone" placeholder="heroic, villainous, mysterious, cheerful, gruff, etc.">
+        </div>
+        
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, steampunk, modern, etc.">
+        </div>
+      </div>
+      
+      <button class="generate-btn" onclick="generateCharacter()" id="generateBtn">
+        Generate Character
+      </button>
+      
+      <div class="output waiting" id="output">
+        Waiting for input... Click "Generate Character" to create a character.
+      </div>
     </div>
-    
-    <h1>Storysmith Character Generator</h1>
-    <p class="tip"><em>Tip: Fill in any fields you want to customize, or leave blank for random results.</em></p>
-    <label>
-      Race:
-      <input type="text" id="race" placeholder="human, elf, dwarf, halfling, orc, tiefling, dragonborn, etc.">
-    </label>
-    <label>
-      Gender:
-      <input type="text" id="gender" placeholder="male, female, non-binary, etc.">
-    </label>
-    <label>
-      Class:
-      <input type="text" id="char_class" placeholder="fighter, wizard, rogue, cleric, bard, ranger, etc.">
-    </label>
-    <label>
-      Tone:
-      <input type="text" id="tone" placeholder="heroic, villainous, mysterious, cheerful, gruff, etc.">
-    </label>
-    <label>
-      Genre:
-      <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, steampunk, modern, etc.">
-    </label>
-    <button onclick="generateCharacter()">Generate</button>
-    <pre id="output">Waiting for input... Click "Generate" to create a character.</pre>
 
     <script>
   async function generateCharacter() {
@@ -54,27 +63,55 @@
     const tone = document.getElementById('tone').value;
     const genre = document.getElementById('genre').value;
     const output = document.getElementById('output');
-    const button = document.querySelector('button');
+    const button = document.getElementById('generateBtn');
 
     // Set loading state
-    output.textContent = "Generating character...";
+    output.className = 'output loading';
+    output.textContent = "🎲 Generating your character... This may take a moment.";
     button.disabled = true;
     button.textContent = "Generating...";
 
     try {
-      const params = new URLSearchParams({ race: race, gender: gender, char_class: charClass, tone: tone, genre:genre });
+      const params = new URLSearchParams({ 
+        race: race || undefined, 
+        gender: gender || undefined, 
+        char_class: charClass || undefined, 
+        tone: tone || undefined, 
+        genre: genre || undefined 
+      });
+      
+      // Remove undefined values
+      for (let [key, value] of params.entries()) {
+        if (value === 'undefined') params.delete(key);
+      }
+      
       const res = await fetch(`http://localhost:8000/npc?${params}`);
+      
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+      
       const data = await res.json();
+      output.className = 'output';
       output.textContent = data.npc;
+      
     } catch (err) {
-      output.textContent = "Error generating character. Please try again.";
-      console.error(err);
+      output.className = 'output error';
+      output.textContent = "❌ Error generating character. Please check your connection and try again.";
+      console.error('Generation error:', err);
     } finally {
       // Reset button state
       button.disabled = false;
-      button.textContent = "Generate";
+      button.textContent = "Generate Character";
     }
   }
+  
+  // Add enter key support
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && !document.getElementById('generateBtn').disabled) {
+      generateCharacter();
+    }
+  });
 </script>
   </body>
 </html>
