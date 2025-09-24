@@ -41,11 +41,11 @@
       Genre:
       <input type="text" id="genre" value="fantasy">
     </label>
-    <button onclick="generateNpc()">Generate</button>
+    <button onclick="generateCharacter()">Generate</button>
     <pre id="output">Waiting for input... Click "Generate" to create a character.</pre>
 
     <script>
-  async function generateNpc() {
+  async function generateCharacter() {
     const race = document.getElementById('race').value;
     const gender = document.getElementById('gender').value;
     const charClass = document.getElementById('char_class').value;

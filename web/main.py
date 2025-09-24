@@ -5,8 +5,9 @@ from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
-from promts.npc import generate_npc
+from promts.character import generate_character
 from promts.location import generate_location
+from promts.item import generate_item
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -29,6 +30,7 @@ def default():
         "Available endpoints:\n"
         "- '/npc' - Generate characters\n"
         "- '/location' - Generate locations\n"
+        "- '/item' - Generate items\n"
         "\n"
         "More features coming soon!\n"
     )
@@ -41,13 +43,18 @@ async def favicon():
 
 @app.get("/npc")
 def get_npc(race: str = Query("human"), gender = Query("female"), char_class: str = Query("fighter"), tone: str = Query("neutral"), genre: str = Query("fantasy")):
-    result = generate_npc(race, gender, char_class, tone, genre)
+    result = generate_character(race, gender, char_class, tone, genre)
     return {"npc": result}
 
 @app.get("/location")
 def get_location(location_type: str = Query("tavern"), size: str = Query("medium"), setting: str = Query("city"), tone: str = Query("welcoming"), genre: str = Query("fantasy")):
     result = generate_location(location_type, size, setting, tone, genre)
     return {"location": result}
+
+@app.get("/item")
+def get_item(item_type: str = Query("weapon"), rarity: str = Query("common"), material: str = Query("steel"), tone: str = Query("practical"), genre: str = Query("fantasy")):
+    result = generate_item(item_type, rarity, material, tone, genre)
+    return {"item": result}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
