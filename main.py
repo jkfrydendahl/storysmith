@@ -18,9 +18,9 @@ def location(location_type: str = "tavern", size: str = "medium", setting: str =
     print("\n" + result)
 
 @app.command()
-def item(item_type: str = "weapon", rarity: str = "common", material: str = "steel", tone: str = "practical", genre: str = "fantasy"):
-    """Generate an item with specified traits. Tone refers to style/appearance (e.g., ornate, crude, mysterious, elegant)."""
-    result = generate_item(item_type, rarity, material, tone, genre)
+def item(item_type: str = "weapon", rarity: str = "common", material: str = "steel", style: str = "practical", genre: str = "fantasy"):
+    """Generate an item with specified traits. Style refers to appearance/design (e.g., ornate, crude, mysterious, elegant)."""
+    result = generate_item(item_type, rarity, material, style, genre)
     print("\n" + result)
 
 if __name__ == "__main__":

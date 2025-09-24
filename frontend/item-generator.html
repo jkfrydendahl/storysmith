@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storysmith - Item Generator</title>
+    <style>
+      body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2rem; }
+      label { display: block; margin-top: 1rem; }
+      input { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
+      button { margin-top: 1rem; padding: 0.5rem 1rem; }
+      pre { background: #f4f4f4; padding: 1rem; white-space: pre-wrap; }
+      .back-link { margin-bottom: 1rem; }
+      .back-link a { text-decoration: none; color: #0066cc; }
+    </style>
+  </head>
+  <body>
+    <div class="back-link">
+      <a href="index.html">← Back to Storysmith</a>
+    </div>
+    
+    <h1>Storysmith Item Generator</h1>
+    <label>
+      Type:
+      <input type="text" id="item_type" value="weapon" placeholder="weapon, armor, potion, artifact, tool, etc.">
+    </label>
+    <label>
+      Rarity:
+      <input type="text" id="rarity" value="common" placeholder="common, uncommon, rare, legendary">
+    </label>
+    <label>
+      Material:
+      <input type="text" id="material" value="steel" placeholder="steel, wood, crystal, bone, silver, etc.">
+    </label>
+    <label>
+      Style:
+      <input type="text" id="tone" value="practical" placeholder="ornate, crude, mysterious, elegant, ancient, etc.">
+    </label>
+    <label>
+      Genre:
+      <input type="text" id="genre" value="fantasy" placeholder="fantasy, sci-fi, horror, steampunk, etc.">
+    </label>
+    <button onclick="generateItem()">Generate</button>
+    <pre id="output">Waiting for input... Click "Generate" to create an item.</pre>
+
+    <script>
+  async function generateItem() {
+    const itemType = document.getElementById('item_type').value;
+    const rarity = document.getElementById('rarity').value;
+    const material = document.getElementById('material').value;
+    const style = document.getElementById('tone').value;
+    const genre = document.getElementById('genre').value;
+    const output = document.getElementById('output');
+    const button = document.querySelector('button');
+
+    // Set loading state
+    output.textContent = "Generating item...";
+    button.disabled = true;
+    button.textContent = "Generating...";
+
+    try {
+      const params = new URLSearchParams({ 
+        item_type: itemType, 
+        rarity: rarity, 
+        material: material, 
+        style: style, 
+        genre: genre 
+      });
+      const res = await fetch(`http://localhost:8000/item?${params}`);
+      const data = await res.json();
+      output.textContent = data.item;
+    } catch (err) {
+      output.textContent = "Error generating item. Please try again.";
+      console.error(err);
+    } finally {
+      // Reset button state
+      button.disabled = false;
+      button.textContent = "Generate";
+    }
+  }
+</script>
+  </body>
+</html>

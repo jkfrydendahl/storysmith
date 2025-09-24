@@ -52,8 +52,8 @@ def get_location(location_type: str = Query("tavern"), size: str = Query("medium
     return {"location": result}
 
 @app.get("/item")
-def get_item(item_type: str = Query("weapon"), rarity: str = Query("common"), material: str = Query("steel"), tone: str = Query("practical"), genre: str = Query("fantasy")):
-    result = generate_item(item_type, rarity, material, tone, genre)
+def get_item(item_type: str = Query("weapon"), rarity: str = Query("common"), material: str = Query("steel"), style: str = Query("practical"), genre: str = Query("fantasy")):
+    result = generate_item(item_type, rarity, material, style, genre)
     return {"item": result}
 
 if __name__ == "__main__":
