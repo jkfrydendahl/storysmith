@@ -13,6 +13,7 @@
       pre { background: #f4f4f4; padding: 1rem; white-space: pre-wrap; }
       .back-link { margin-bottom: 1rem; }
       .back-link a { text-decoration: none; color: #0066cc; }
+      .tip { font-size: 0.9em; color: #666; margin-bottom: 1.5rem; }
     </style>
   </head>
   <body>
@@ -21,25 +22,26 @@
     </div>
     
     <h1>Storysmith Character Generator</h1>
+    <p class="tip"><em>Tip: Fill in any fields you want to customize, or leave blank for random results.</em></p>
     <label>
       Race:
-      <input type="text" id="race" value="human">
+      <input type="text" id="race" placeholder="human, elf, dwarf, halfling, orc, tiefling, dragonborn, etc.">
     </label>
     <label>
       Gender:
-      <input type="text" id="gender" value="female">
+      <input type="text" id="gender" placeholder="male, female, non-binary, etc.">
     </label>
     <label>
       Class:
-      <input type="text" id="char_class" value="fighter">
+      <input type="text" id="char_class" placeholder="fighter, wizard, rogue, cleric, bard, ranger, etc.">
     </label>
     <label>
       Tone:
-      <input type="text" id="tone" value="neutral">
+      <input type="text" id="tone" placeholder="heroic, villainous, mysterious, cheerful, gruff, etc.">
     </label>
     <label>
       Genre:
-      <input type="text" id="genre" value="fantasy">
+      <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, steampunk, modern, etc.">
     </label>
     <button onclick="generateCharacter()">Generate</button>
     <pre id="output">Waiting for input... Click "Generate" to create a character.</pre>
