@@ -5,13 +5,21 @@ import random
 class AdventurePrompt(PromptTemplate):
     def render(self, adventure_type: str, length: str, theme: str, difficulty: str, genre: str) -> str:
         random_seed = random.randint(1000, 9999)
+        
+        # Handle empty parameters by using descriptive language
+        type_param = adventure_type if adventure_type.strip() and adventure_type.strip().lower() != "undefined" else "engaging adventure"
+        length_param = length if length.strip() and length.strip().lower() != "undefined" else "suitable length"
+        theme_param = theme if theme.strip() and theme.strip().lower() != "undefined" else "compelling theme"
+        difficulty_param = difficulty if difficulty.strip() and difficulty.strip().lower() != "undefined" else "balanced difficulty"
+        genre_param = genre if genre.strip() and genre.strip().lower() != "undefined" else "fantasy setting"
+        
         return (
             f"Create a unique tabletop RPG adventure with the following parameters:\n"
-            f"Type: {adventure_type}\n"
-            f"Length: {length}\n"
-            f"Theme: {theme}\n"
-            f"Difficulty: {difficulty}\n"
-            f"Genre: {genre}\n"
+            f"Type: {type_param}\n"
+            f"Length: {length_param}\n"
+            f"Theme: {theme_param}\n"
+            f"Difficulty: {difficulty_param}\n"
+            f"Genre: {genre_param}\n"
             f"Variation seed: {random_seed}\n\n"
             f"Format your response with clear headings:\n\n"
             f"Title: [Give it an engaging, memorable title]\n\n"

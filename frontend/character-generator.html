@@ -73,17 +73,12 @@
 
     try {
       const params = new URLSearchParams({ 
-        race: race || undefined, 
-        gender: gender || undefined, 
-        char_class: charClass || undefined, 
-        personality: personality || undefined, 
-        genre: genre || undefined 
+        race: race || '', 
+        gender: gender || '', 
+        char_class: charClass || '', 
+        personality: personality || '', 
+        genre: genre || '' 
       });
-      
-      // Remove undefined values
-      for (let [key, value] of params.entries()) {
-        if (value === 'undefined') params.delete(key);
-      }
       
       const res = await fetch(`http://localhost:8000/npc?${params}`);
       

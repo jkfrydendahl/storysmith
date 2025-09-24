@@ -72,7 +72,7 @@ Features
 - [x] Characters
 - [x] Locations
 - [x] Items
-- [ ] Treasure
+- [x] Treasure
 - [x] Adventures
 - [ ] Events
 - [ ] Organizations

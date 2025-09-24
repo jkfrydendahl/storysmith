@@ -7,11 +7,11 @@ class TreasurePrompt(PromptTemplate):
         random_seed = random.randint(1000, 9999)
         
         # Handle empty parameters by using "random" or more descriptive language
-        type_param = treasure_type if treasure_type.strip() else "random treasure or trinket"
-        value_param = value if value.strip() else "appropriate value"
-        origin_param = origin if origin.strip() else "mysterious origin"
-        condition_param = condition if condition.strip() else "varying condition"
-        genre_param = genre if genre.strip() else "fantasy setting"
+        type_param = treasure_type if treasure_type.strip() and treasure_type.strip().lower() != "undefined" else "random treasure or trinket"
+        value_param = value if value.strip() and value.strip().lower() != "undefined" else "appropriate value"
+        origin_param = origin if origin.strip() and origin.strip().lower() != "undefined" else "mysterious origin"
+        condition_param = condition if condition.strip() and condition.strip().lower() != "undefined" else "varying condition"
+        genre_param = genre if genre.strip() and genre.strip().lower() != "undefined" else "fantasy setting"
         
         return (
             f"Create a unique tabletop RPG treasure or trinket with the following parameters:\n"

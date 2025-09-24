@@ -46,22 +46,22 @@ async def favicon():
     return FileResponse(path=file_path, headers={"Content-Disposition": "attachment; filename=" + file_name})
 
 @app.get("/npc")
-def get_npc(race: str = Query("human"), gender = Query("female"), char_class: str = Query("fighter"), personality: str = Query("neutral"), genre: str = Query("fantasy")):
+def get_npc(race: str = Query(""), gender = Query(""), char_class: str = Query(""), personality: str = Query(""), genre: str = Query("")):
     result = generate_character(race, gender, char_class, personality, genre)
     return {"npc": result}
 
 @app.get("/location")
-def get_location(location_type: str = Query("tavern"), size: str = Query("medium"), setting: str = Query("city"), tone: str = Query("welcoming"), genre: str = Query("fantasy")):
+def get_location(location_type: str = Query(""), size: str = Query(""), setting: str = Query(""), tone: str = Query(""), genre: str = Query("")):
     result = generate_location(location_type, size, setting, tone, genre)
     return {"location": result}
 
 @app.get("/item")
-def get_item(item_type: str = Query("weapon"), rarity: str = Query("common"), material: str = Query("steel"), style: str = Query("practical"), genre: str = Query("fantasy")):
+def get_item(item_type: str = Query(""), rarity: str = Query(""), material: str = Query(""), style: str = Query(""), genre: str = Query("")):
     result = generate_item(item_type, rarity, material, style, genre)
     return {"item": result}
 
 @app.get("/adventure")
-def get_adventure(adventure_type: str = Query("dungeon"), length: str = Query("short"), theme: str = Query("exploration"), difficulty: str = Query("medium"), genre: str = Query("fantasy")):
+def get_adventure(adventure_type: str = Query(""), length: str = Query(""), theme: str = Query(""), difficulty: str = Query(""), genre: str = Query("")):
     result = generate_adventure(adventure_type, length, theme, difficulty, genre)
     return {"adventure": result}
 

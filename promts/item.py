@@ -5,13 +5,21 @@ import random
 class ItemPrompt(PromptTemplate):
     def render(self, item_type: str, rarity: str, material: str, style: str, genre: str) -> str:
         random_seed = random.randint(1000, 9999)
+        
+        # Handle empty parameters by using descriptive language
+        type_param = item_type if item_type.strip() and item_type.strip().lower() != "undefined" else "useful item"
+        rarity_param = rarity if rarity.strip() and rarity.strip().lower() != "undefined" else "appropriate rarity"
+        material_param = material if material.strip() and material.strip().lower() != "undefined" else "suitable material"
+        style_param = style if style.strip() and style.strip().lower() != "undefined" else "distinctive style"
+        genre_param = genre if genre.strip() and genre.strip().lower() != "undefined" else "fantasy setting"
+        
         return (
             f"Create a unique tabletop RPG item with the following parameters:\n"
-            f"Item Type: {item_type}\n"
-            f"Rarity: {rarity}\n"
-            f"Material: {material}\n"
-            f"Style: {style}\n"
-            f"Genre: {genre}\n"
+            f"Item Type: {type_param}\n"
+            f"Rarity: {rarity_param}\n"
+            f"Material: {material_param}\n"
+            f"Style: {style_param}\n"
+            f"Genre: {genre_param}\n"
             f"Variation seed: {random_seed}\n\n"
             f"Format your response with clear headings:\n\n"
             f"Name: [Give it a distinctive, memorable name]\n\n"
