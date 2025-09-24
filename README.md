@@ -40,7 +40,7 @@ Run the CLI in terminal:
 ```bash
 poetry run python main.py
 
-//example with parameters: 
+// Example with parameters: 
 poetry run python main.py --race elf --gender male --char-class rogue --tone dark --genre fantasy  
 ```
 
