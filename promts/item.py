@@ -19,6 +19,12 @@ class ItemPrompt(PromptTemplate):
             f"Properties: [Mechanical effects, magical properties, or special abilities]\n\n"
             f"Details: [Interesting lore, creation story, or unique characteristics]\n\n"
             f"History: [Background, previous owners, or legendary tales if appropriate]\n\n"
+            f"Game Statistics (Suggestion): [Provide appropriate RPG stats based on item type, rarity and properties:\n"
+            f"- Weapons: weapon type, damage and damage type, reach, properties, weight, value\n"
+            f"- Armor: AC bonus, armor type, special properties, weight, value\n"
+            f"- Potions: effects, duration, usage restrictions, value\n"
+            f"- Tools: skill bonuses, special abilities, weight, value\n"
+            f"- Artifacts: magical properties, attunement(or similar stat), charges/uses, rarity effects]\n\n"
             f"Do not include the variation seed number in your response."
         )
 
