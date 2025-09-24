@@ -22,7 +22,7 @@ Installation:
 ```bash
 git clone https://github.com/JesperKF311/storysmith.git
 
-# cd to storysmith repo folder and run (in order):
+# cd to storysmith root (repo) folder and run (in order):
 poetry install
 pip install "fastapi[standard]"
 pip install openai
@@ -41,11 +41,14 @@ Set your OpenAI API key:
 
 Run the CLI in terminal:
 ```bash
-# from storysmith root folder, run:
-poetry run python main.py
+# cd to storysmith root folder
+# run poetry call with the generator command you want to use
 
-# example with parameters: 
-poetry run python main.py --race elf --gender male --char-class rogue --tone dark --genre fantasy  
+# example without parameters (for complete randomization):
+poetry run python main.py character
+
+# example, with parameters: 
+poetry run python main.py character --race elf --gender female --char-class rogue --personality charlatan --genre fantasy
 ```
 
 Run the web UI:
