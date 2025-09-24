@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adventure Generator - Storysmith</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>🗡️ Adventure Generator</h1>
+      <div class="tip">Fill in any fields you want to customize, or leave blank for random results.</div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="adventure_type">Type</label>
+          <input type="text" id="adventure_type" placeholder="dungeon, investigation, rescue, heist, exploration, etc.">
+        </div>
+        <div>
+          <label for="length">Length</label>
+          <input type="text" id="length" placeholder="short, medium, long, campaign">
+        </div>
+        <div>
+          <label for="theme">Theme</label>
+          <input type="text" id="theme" placeholder="exploration, mystery, combat, social, survival, etc.">
+        </div>
+        <div>
+          <label for="difficulty">Difficulty</label>
+          <input type="text" id="difficulty" placeholder="easy, medium, hard, deadly">
+        </div>
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, steampunk, etc.">
+        </div>
+      </div>
+      
+      <button class="generate-btn" onclick="generateAdventure()">Generate Adventure</button>
+      <div class="output waiting" id="output">Waiting for input... Click "Generate Adventure" to create an adventure.</div>
+    </div>
+
+    <script>
+      async function generateAdventure() {
+        const adventureType = document.getElementById('adventure_type').value;
+        const length = document.getElementById('length').value;
+        const theme = document.getElementById('theme').value;
+        const difficulty = document.getElementById('difficulty').value;
+        const genre = document.getElementById('genre').value;
+        const output = document.getElementById('output');
+        const button = document.querySelector('.generate-btn');
+
+        // Set loading state
+        output.textContent = "🗡️ Crafting your adventure...";
+        output.className = 'output loading';
+        button.disabled = true;
+        button.textContent = "Generating...";
+
+        try {
+          const params = new URLSearchParams({ 
+            adventure_type: adventureType, 
+            length: length, 
+            theme: theme, 
+            difficulty: difficulty, 
+            genre: genre 
+          });
+          const res = await fetch(`http://localhost:8000/adventure?${params}`);
+          
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          
+          const data = await res.json();
+          output.textContent = data.adventure;
+          output.className = 'output';
+        } catch (err) {
+          output.textContent = "❌ Error generating adventure. Please check that the server is running and try again.";
+          output.className = 'output error';
+          console.error('Generation error:', err);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Adventure";
+        }
+      }
+
+      // Add keyboard support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !document.querySelector('.generate-btn').disabled) {
+          generateAdventure();
+        }
+      });
+    </script>
+  </body>
+</html>

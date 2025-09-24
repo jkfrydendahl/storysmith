@@ -72,9 +72,9 @@ Features
 - [x] Characters
 - [x] Locations
 - [x] Items
-- [ ] Adventures
+- [ ] Treasure
+- [x] Adventures
 - [ ] Events
 - [ ] Organizations
-- [ ] Treasure
 - [ ] Regions
 - [ ] Weather

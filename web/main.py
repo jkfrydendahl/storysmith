@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from promts.character import generate_character
 from promts.location import generate_location
 from promts.item import generate_item
+from promts.adventure import generate_adventure
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -31,6 +32,7 @@ def default():
         "- '/npc' - Generate characters\n"
         "- '/location' - Generate locations\n"
         "- '/item' - Generate items\n"
+        "- '/adventure' - Generate adventures\n"
         "\n"
         "More features coming soon!\n"
     )
@@ -42,8 +44,8 @@ async def favicon():
     return FileResponse(path=file_path, headers={"Content-Disposition": "attachment; filename=" + file_name})
 
 @app.get("/npc")
-def get_npc(race: str = Query("human"), gender = Query("female"), char_class: str = Query("fighter"), tone: str = Query("neutral"), genre: str = Query("fantasy")):
-    result = generate_character(race, gender, char_class, tone, genre)
+def get_npc(race: str = Query("human"), gender = Query("female"), char_class: str = Query("fighter"), personality: str = Query("neutral"), genre: str = Query("fantasy")):
+    result = generate_character(race, gender, char_class, personality, genre)
     return {"npc": result}
 
 @app.get("/location")
@@ -55,6 +57,11 @@ def get_location(location_type: str = Query("tavern"), size: str = Query("medium
 def get_item(item_type: str = Query("weapon"), rarity: str = Query("common"), material: str = Query("steel"), style: str = Query("practical"), genre: str = Query("fantasy")):
     result = generate_item(item_type, rarity, material, style, genre)
     return {"item": result}
+
+@app.get("/adventure")
+def get_adventure(adventure_type: str = Query("dungeon"), length: str = Query("short"), theme: str = Query("exploration"), difficulty: str = Query("medium"), genre: str = Query("fantasy")):
+    result = generate_adventure(adventure_type, length, theme, difficulty, genre)
+    return {"adventure": result}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
