@@ -10,7 +10,9 @@ class NPCPrompt(PromptTemplate):
             f"Class: {char_class}\n"
             f"Tone: {tone}\n"
             f"Genre/Setting: {genre}\n"
-            f"Include name, description, quirk, and motive."
+            f"Requirements:\n"
+            f"- Give them a distinctive, original name\n"
+            f"- Include vivid description, memorable quirk, and clear motive\n"
         )
 
 def generate_npc(race: str, gender: str, char_class: str, tone: str, genre: str) -> str:
