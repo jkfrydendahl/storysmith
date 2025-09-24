@@ -27,7 +27,7 @@ def default():
         "Generate rich characters, locations, items, and more — through a simple CLI or API.\n"
         "\n"
         "Available endpoints:\n"
-        "- '/npc' - Generate NPCs\n"
+        "- '/npc' - Generate characters\n"
         "- '/location' - Generate locations\n"
         "\n"
         "More features coming soon!\n"
