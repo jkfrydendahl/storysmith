@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <met        output.className = 'output loading';
+        output.textContent = "🎲 Discovering your treasure...";
+        button.disabled = true;harset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Treasure and Trinket Generator - Storysmith</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>🏆 Treasure and Trinket Generator</h1>
+      <div class="tip">Fill in any fields you want to customize, or leave blank for random results.</div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="treasure_type">Type</label>
+          <input type="text" id="treasure_type" placeholder="hoard, trinket, weapon, armor, jewelry, artifact, coin, gem, etc.">
+        </div>
+        <div>
+          <label for="value">Value</label>
+          <input type="text" id="value" placeholder="worthless, minor, moderate, valuable, precious, legendary">
+        </div>
+        <div>
+          <label for="origin">Origin</label>
+          <input type="text" id="origin" placeholder="ancient, royal, draconic, divine, elven, dwarven, pirate, etc.">
+        </div>
+        <div>
+          <label for="condition">Condition</label>
+          <input type="text" id="condition" placeholder="pristine, worn, damaged, cracked, tarnished, restored, etc.">
+        </div>
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, medieval, steampunk, modern, sci-fi, horror, etc.">
+        </div>
+      </div>
+      
+      <button id="generate-btn" class="generate-btn">Generate Treasure</button>
+      
+      <div class="output waiting" id="output">
+        Waiting for input... Click "Generate Treasure" to create a treasure.
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('generate-btn').addEventListener('click', async () => {
+        const output = document.getElementById('output');
+        const button = document.getElementById('generate-btn');
+        
+        output.className = 'output loading';
+        output.textContent = "🎲 Discovering your treasure...";
+        button.disabled = true;
+        button.textContent = "Generating...";
+        
+        const params = new URLSearchParams({
+          treasure_type: document.getElementById('treasure_type').value || '',
+          value: document.getElementById('value').value || '',
+          origin: document.getElementById('origin').value || '',
+          condition: document.getElementById('condition').value || '',
+          genre: document.getElementById('genre').value || ''
+        });
+        
+        try {
+          const response = await fetch(`http://localhost:8000/treasure?${params}`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          
+          const data = await response.json();
+          output.className = 'output';
+          output.textContent = data.treasure;
+          
+        } catch (error) {
+          output.className = 'output error';
+          output.textContent = "❌ Error generating treasure. Please check your connection and try again.";
+          console.error('Generation error:', error);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Treasure";
+        }
+      });
+    </script>
+  </body>
+</html>

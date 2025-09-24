@@ -3,6 +3,7 @@ from promts.character import generate_character
 from promts.location import generate_location
 from promts.item import generate_item
 from promts.adventure import generate_adventure
+from promts.treasure import generate_treasure
 
 app = typer.Typer()
 
@@ -28,6 +29,12 @@ def item(item_type: str = "weapon", rarity: str = "common", material: str = "ste
 def adventure(adventure_type: str = "dungeon", length: str = "short", theme: str = "exploration", difficulty: str = "medium", genre: str = "fantasy"):
     """Generate an adventure with specified traits. Adventure type could be dungeon, investigation, rescue, heist, etc."""
     result = generate_adventure(adventure_type, length, theme, difficulty, genre)
+    print("\n" + result)
+
+@app.command()
+def treasure(treasure_type: str = "hoard", value: str = "moderate", origin: str = "ancient", condition: str = "pristine", genre: str = "fantasy"):
+    """Generate treasures and trinkets with specified traits. Type could be hoard, jewelry, coins, artifact, etc."""
+    result = generate_treasure(treasure_type, value, origin, condition, genre)
     print("\n" + result)
 
 if __name__ == "__main__":
