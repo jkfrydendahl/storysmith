@@ -8,32 +8,32 @@ from promts.treasure import generate_treasure
 app = typer.Typer()
 
 @app.command()
-def character(race: str = "human", gender: str = "female", char_class: str = "fighter", personality: str = "neutral", genre: str = "fantasy"):
-    """Generate a character with specified traits."""
+def character(race: str = "", gender: str = "", char_class: str = "", personality: str = "", genre: str = ""):
+    """Generate a character with specified traits. Leave parameters empty for complete randomization."""
     result = generate_character(race, gender, char_class, personality, genre)
     print("\n" + result)
 
 @app.command()
-def location(location_type: str = "tavern", size: str = "medium", setting: str = "city", tone: str = "welcoming", genre: str = "fantasy"):
-    """Generate a location with specified traits. Tone refers to atmosphere/condition (e.g., posh, dirty, welcoming, abandoned)."""
+def location(location_type: str = "", size: str = "", setting: str = "", tone: str = "", genre: str = ""):
+    """Generate a location with specified traits. Leave parameters empty for complete randomization. Tone refers to atmosphere/condition (e.g., posh, dirty, welcoming, abandoned)."""
     result = generate_location(location_type, size, setting, tone, genre)
     print("\n" + result)
 
 @app.command()
-def item(item_type: str = "weapon", rarity: str = "common", material: str = "steel", style: str = "practical", genre: str = "fantasy"):
-    """Generate an item with specified traits. Style refers to appearance/design (e.g., ornate, crude, mysterious, elegant)."""
+def item(item_type: str = "", rarity: str = "", material: str = "", style: str = "", genre: str = ""):
+    """Generate an item with specified traits. Leave parameters empty for complete randomization. Style refers to appearance/design (e.g., ornate, crude, mysterious, elegant)."""
     result = generate_item(item_type, rarity, material, style, genre)
     print("\n" + result)
 
 @app.command()
-def adventure(adventure_type: str = "dungeon", length: str = "short", theme: str = "exploration", difficulty: str = "medium", genre: str = "fantasy"):
-    """Generate an adventure with specified traits. Adventure type could be dungeon, investigation, rescue, heist, etc."""
+def adventure(adventure_type: str = "", length: str = "", theme: str = "", difficulty: str = "", genre: str = ""):
+    """Generate an adventure with specified traits. Leave parameters empty for complete randomization. Adventure type could be dungeon, investigation, rescue, heist, etc."""
     result = generate_adventure(adventure_type, length, theme, difficulty, genre)
     print("\n" + result)
 
 @app.command()
-def treasure(treasure_type: str = "hoard", value: str = "moderate", origin: str = "ancient", condition: str = "pristine", genre: str = "fantasy"):
-    """Generate treasures and trinkets with specified traits. Type could be hoard, jewelry, coins, artifact, etc."""
+def treasure(treasure_type: str = "", value: str = "", origin: str = "", condition: str = "", genre: str = ""):
+    """Generate treasures and trinkets with specified traits. Leave parameters empty for complete randomization. Type could be hoard, jewelry, coins, artifact, etc."""
     result = generate_treasure(treasure_type, value, origin, condition, genre)
     print("\n" + result)
 
