@@ -57,19 +57,21 @@ navigate to the /frontend folder and open index.html in your browser of choice
 ## 🔍 Roadmap
 
 Solution:
-- [x] Web UI (FastAPI API backend)
-- [x] Frontend UI (HTML and JS)
-- [ ] Local model support (e.g., Ollama)
-- [ ] Prompt customization via YAML/JSON
-- [ ] Campaign export to Obsidian/Markdown
+- [x] Web UI 
+- [x] Frontend UI
+- [ ] Local model support
+- [ ] Advanced prompt customization
+- [ ] Bulk generation
+- [ ] History/search functionality
+- [ ] Randomization controls
 
 Features
 - [x] Characters
 - [x] Locations
 - [x] Items
-- [ ] Regions
 - [ ] Adventures
 - [ ] Events
 - [ ] Organizations
 - [ ] Treasure
+- [ ] Regions
 - [ ] Weather
