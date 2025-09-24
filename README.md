@@ -22,7 +22,7 @@ Installation:
 ```bash
 git clone https://github.com/JesperKF311/storysmith.git
 
-// cd to storysmith repo folder and run:
+# cd to storysmith repo folder and run:
 poetry install
 pip install "fastapi[standard]"
 pip install openai
@@ -33,26 +33,26 @@ pip install python-dotenv
 
 Set your OpenAI API key:
 ```bash
-// set your OPENAI_API_KEY in .env file
-// (exluded in .gitignore to not reveal secrets)
+# set your OPENAI_API_KEY in .env file
+# (exluded in .gitignore to not reveal secrets)
 ```
 
 Run the CLI in terminal:
 ```bash
-// go to storysmith root folder and run:
+# go to storysmith root folder and run:
 poetry run python main.py
 
-// example with parameters: 
+# example with parameters: 
 poetry run python main.py --race elf --gender male --char-class rogue --tone dark --genre fantasy  
 ```
 
 Run the web UI:
 ```bash
-// go to storysmith root folder and run:
+# go to storysmith root folder and run:
 poetry run uvicorn web.main:app --reload
 
-// wait for the application startup to complete
-// navigate to the /frontend folder and open index.html in your browser of choice
+# wait for the application startup to complete
+# navigate to the /frontend folder and open index.html in your browser of choice
 ```
 
 ---
