@@ -11,9 +11,15 @@
       input { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
       button { margin-top: 1rem; padding: 0.5rem 1rem; }
       pre { background: #f4f4f4; padding: 1rem; white-space: pre-wrap; }
+      .back-link { margin-bottom: 1rem; }
+      .back-link a { text-decoration: none; color: #0066cc; }
     </style>
   </head>
   <body>
+    <div class="back-link">
+      <a href="index.html">← Back to Storysmith</a>
+    </div>
+    
     <h1>Storysmith NPC Generator</h1>
     <label>
       Race:
@@ -36,7 +42,7 @@
       <input type="text" id="genre" value="fantasy">
     </label>
     <button onclick="generateNpc()">Generate</button>
-    <pre id="output"></pre>
+    <pre id="output">Waiting for input... Click "Generate" to create an NPC.</pre>
 
     <script>
   async function generateNpc() {

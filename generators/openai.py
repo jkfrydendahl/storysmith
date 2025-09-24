@@ -12,6 +12,6 @@ def call_openai(prompt: str) -> str:
         model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=1.0,
-        max_tokens=500
+        max_tokens=800
     )
     return response["choices"][0]["message"]["content"].strip()
