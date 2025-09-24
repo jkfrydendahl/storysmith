@@ -23,7 +23,7 @@ Installation:
 # clone this repo
 git clone https://github.com/JesperKF311/storysmith.git
 
-# cd to storysmith root (repo) folder and run (in order):
+# cd to storysmith root folder and run (in order):
 poetry install
 pip install "fastapi[standard]"
 pip install openai
