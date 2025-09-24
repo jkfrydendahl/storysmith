@@ -75,7 +75,7 @@ poetry run uvicorn web.main:app --reload
 
 Solution:
 - [x] Web UI 
-- [x] Frontend UI
+- [x] Frontend UX
 - [ ] Local model support
 - [ ] Advanced prompt customization
 - [ ] Bulk generation
