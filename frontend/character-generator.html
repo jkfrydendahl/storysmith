@@ -36,8 +36,8 @@
         </div>
         
         <div>
-          <label for="tone">Tone</label>
-          <input type="text" id="tone" placeholder="heroic, villainous, mysterious, cheerful, gruff, etc.">
+          <label for="personality">Personality</label>
+          <input type="text" id="personality" placeholder="heroic, villainous, mysterious, cheerful, gruff, etc.">
         </div>
         
         <div>
@@ -60,7 +60,7 @@
     const race = document.getElementById('race').value;
     const gender = document.getElementById('gender').value;
     const charClass = document.getElementById('char_class').value;
-    const tone = document.getElementById('tone').value;
+    const personality = document.getElementById('personality').value;
     const genre = document.getElementById('genre').value;
     const output = document.getElementById('output');
     const button = document.getElementById('generateBtn');
@@ -76,7 +76,7 @@
         race: race || undefined, 
         gender: gender || undefined, 
         char_class: charClass || undefined, 
-        tone: tone || undefined, 
+        personality: personality || undefined, 
         genre: genre || undefined 
       });
       

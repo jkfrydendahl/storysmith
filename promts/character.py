@@ -3,14 +3,14 @@ from generators.openai import call_openai
 import random
 
 class CharacterPrompt(PromptTemplate):
-    def render(self, race: str, gender: str, char_class: str, tone: str, genre: str) -> str:
+    def render(self, race: str, gender: str, char_class: str, personality: str, genre: str) -> str:
         random_seed = random.randint(1000, 9999)
         return (
             f"Create a unique tabletop RPG character with the following parameters:\n"
             f"Race: {race}\n"
             f"Gender: {gender}\n"
             f"Class: {char_class}\n"
-            f"Tone: {tone}\n"
+            f"Personality: {personality}\n"
             f"Genre/Setting: {genre}\n"
             f"Variation seed: {random_seed}\n\n"
             f"Requirements:\n"
@@ -19,6 +19,6 @@ class CharacterPrompt(PromptTemplate):
             f"Do not include the variation seed number in your response."
         )
 
-def generate_character(race: str, gender: str, char_class: str, tone: str, genre: str) -> str:
-    prompt = CharacterPrompt().render(race=race, gender=gender, char_class=char_class, tone=tone, genre=genre)
+def generate_character(race: str, gender: str, char_class: str, personality: str, genre: str) -> str:
+    prompt = CharacterPrompt().render(race=race, gender=gender, char_class=char_class, personality=personality, genre=genre)
     return call_openai(prompt)
