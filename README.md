@@ -2,8 +2,9 @@
 
 **Storysmith** is a modular, AI-powered storytelling toolkit for tabletop RPG creators. Generate rich characters, locations, items, and more — through a simple CLI or API. See roadmap at the bottom for status on feature implementation.
 
----
 <br>
+
+---
 
 ## ✨ Features
 
@@ -11,8 +12,9 @@
 - 💻 CLI-first, with pluggable model backends
 - 🧱 Clean code and extensible architecture
 
----
 <br>
+
+---
 
 ## 🛠️ Installation and Usage
 
@@ -65,8 +67,9 @@ poetry run uvicorn web.main:app --reload
 # note: to stop the web app, navigate to your terminal and press CTRL+C
 ```
 
----
 <br>
+
+---
 
 ## 🔍 Roadmap
 
