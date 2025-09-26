@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organization Generator - Storysmith</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>🏛️ Organization Generator</h1>
+      <div class="tip">Fill in any fields you want to customize, or leave blank for random results.</div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="org_type">Type</label>
+          <input type="text" id="org_type" placeholder="guild, cult, merchant-company, noble-house, criminal-syndicate, etc.">
+        </div>
+        <div>
+          <label for="size">Size</label>
+          <input type="text" id="size" placeholder="small, medium, large, massive, secretive">
+        </div>
+        <div>
+          <label for="influence">Influence</label>
+          <input type="text" id="influence" placeholder="local, regional, national, international, shadow">
+        </div>
+        <div>
+          <label for="focus">Focus</label>
+          <input type="text" id="focus" placeholder="trade, knowledge, power, religion, crime, protection, craft, etc.">
+        </div>
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, medieval, steampunk, modern, sci-fi, horror, etc.">
+        </div>
+      </div>
+      
+      <button id="generate-btn" class="generate-btn">Generate Organization</button>
+      
+      <div class="output waiting" id="output">
+        Waiting for input... Click "Generate Organization" to begin.
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('generate-btn').addEventListener('click', async () => {
+        const output = document.getElementById('output');
+        const button = document.getElementById('generate-btn');
+        
+        output.className = 'output loading';
+        output.textContent = "🎲 Building your organization...";
+        button.disabled = true;
+        button.textContent = "Generating...";
+        
+        const params = new URLSearchParams({
+          org_type: document.getElementById('org_type').value || '',
+          size: document.getElementById('size').value || '',
+          influence: document.getElementById('influence').value || '',
+          focus: document.getElementById('focus').value || '',
+          genre: document.getElementById('genre').value || ''
+        });
+        
+        try {
+          const response = await fetch(`http://localhost:8000/organization?${params}`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          
+          const data = await response.json();
+          output.className = 'output';
+          output.textContent = data.organization;
+          
+        } catch (error) {
+          output.className = 'output error';
+          output.textContent = "❌ Error generating organization. Please check your connection and try again.";
+          console.error('Generation error:', error);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Organization";
+        }
+      });
+    </script>
+  </body>
+</html>

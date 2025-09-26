@@ -5,6 +5,7 @@ from promts.item import generate_item
 from promts.adventure import generate_adventure
 from promts.treasure import generate_treasure
 from promts.event import generate_event
+from promts.organization import generate_organization
 
 app = typer.Typer()
 
@@ -42,6 +43,12 @@ def treasure(treasure_type: str = "", value: str = "", origin: str = "", conditi
 def event(event_type: str = "", scale: str = "", tone: str = "", setting: str = "", genre: str = ""):
     """Generate an event with specified traits. Leave parameters empty for complete randomization. Events are atmospheric happenings that occur in the world."""
     result = generate_event(event_type, scale, tone, setting, genre)
+    print("\n" + result)
+
+@app.command()
+def organization(org_type: str = "", size: str = "", influence: str = "", focus: str = "", genre: str = ""):
+    """Generate an organization with specified traits. Leave parameters empty for complete randomization. Organizations include guilds, cults, companies, noble houses, etc."""
+    result = generate_organization(org_type, size, influence, focus, genre)
     print("\n" + result)
 
 if __name__ == "__main__":

@@ -89,6 +89,6 @@ Generators:
 - [x] Treasure
 - [x] Adventures
 - [x] Events
-- [ ] Organizations
+- [x] Organizations
 - [ ] Regions
 - [ ] Weather
