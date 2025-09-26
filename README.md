@@ -88,7 +88,7 @@ Generators:
 - [x] Items
 - [x] Treasure
 - [x] Adventures
-- [ ] Events
+- [x] Events
 - [ ] Organizations
 - [ ] Regions
 - [ ] Weather
