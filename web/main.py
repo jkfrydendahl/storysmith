@@ -10,6 +10,7 @@ from promts.location import generate_location
 from promts.item import generate_item
 from promts.adventure import generate_adventure
 from promts.treasure import generate_treasure
+from promts.event import generate_event
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -69,6 +70,11 @@ def get_adventure(adventure_type: str = Query(""), length: str = Query(""), them
 def get_treasure(treasure_type: str = Query(""), value: str = Query(""), origin: str = Query(""), condition: str = Query(""), genre: str = Query("")):
     result = generate_treasure(treasure_type, value, origin, condition, genre)
     return {"treasure": result}
+
+@app.get("/event")
+def get_event(event_type: str = Query(""), scale: str = Query(""), tone: str = Query(""), setting: str = Query(""), genre: str = Query("")):
+    result = generate_event(event_type, scale, tone, setting, genre)
+    return {"event": result}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)

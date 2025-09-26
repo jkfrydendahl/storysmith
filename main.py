@@ -4,6 +4,7 @@ from promts.location import generate_location
 from promts.item import generate_item
 from promts.adventure import generate_adventure
 from promts.treasure import generate_treasure
+from promts.event import generate_event
 
 app = typer.Typer()
 
@@ -35,6 +36,12 @@ def adventure(adventure_type: str = "", length: str = "", theme: str = "", diffi
 def treasure(treasure_type: str = "", value: str = "", origin: str = "", condition: str = "", genre: str = ""):
     """Generate treasures and trinkets with specified traits. Leave parameters empty for complete randomization. Type could be hoard, jewelry, coins, artifact, etc."""
     result = generate_treasure(treasure_type, value, origin, condition, genre)
+    print("\n" + result)
+
+@app.command()
+def event(event_type: str = "", scale: str = "", tone: str = "", setting: str = "", genre: str = ""):
+    """Generate an event with specified traits. Leave parameters empty for complete randomization. Events are atmospheric happenings that occur in the world."""
+    result = generate_event(event_type, scale, tone, setting, genre)
     print("\n" + result)
 
 if __name__ == "__main__":
