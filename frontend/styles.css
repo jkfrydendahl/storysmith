@@ -30,12 +30,17 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   background: var(--card-background);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 2rem;
+}
+
+/* Narrower container for generator pages */
+body:not(:has(.generators)) .container {
+  max-width: 600px;
 }
 
 h1 {
@@ -56,8 +61,21 @@ h1 {
 /* Home page styles */
 .generators {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-top: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .generators {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .generators {
+    grid-template-columns: 1fr;
+  }
 }
 
 .generator-card {
