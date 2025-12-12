@@ -90,5 +90,5 @@ Generators:
 - [x] Adventures
 - [x] Events
 - [x] Organizations
-- [ ] Regions
+- [x] Regions
 - [ ] Weather

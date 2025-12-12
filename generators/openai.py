@@ -46,7 +46,7 @@ def call_openai(prompt: str) -> str:
             model="gpt-5.2",
             messages=[{"role": "user", "content": prompt}],
             temperature=1.0,
-            max_completion_tokens=1200
+            max_completion_tokens=4000
         )
         
         # Check if the response was truncated due to token limit
