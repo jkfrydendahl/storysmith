@@ -13,6 +13,7 @@ from promts.treasure import generate_treasure
 from promts.event import generate_event
 from promts.organization import generate_organization
 from promts.region import generate_region
+from promts.weather import generate_weather
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -87,6 +88,11 @@ def get_organization(org_type: str = Query(""), size: str = Query(""), influence
 def get_region(region_type: str = Query(""), size: str = Query(""), terrain: str = Query(""), climate: str = Query(""), genre: str = Query("")):
     result = generate_region(region_type, size, terrain, climate, genre)
     return {"region": result}
+
+@app.get("/weather")
+def get_weather(weather_type: str = Query(""), severity: str = Query(""), season: str = Query(""), environment: str = Query(""), genre: str = Query("")):
+    result = generate_weather(weather_type, severity, season, environment, genre)
+    return {"weather": result}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -91,7 +91,7 @@ Generators:
 - [x] Events
 - [x] Organizations
 - [x] Regions
-- [ ] Weather
+- [x] Weather
 - [ ] Monsters/Creatures
 - [ ] Spells/Magic
 - [ ] Deities/Pantheons

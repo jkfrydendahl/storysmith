@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Generator - Storysmith</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>🌤️ Weather Generator</h1>
+      <div class="tip">Fill in any fields you want to customize, or leave blank for random results.</div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="weather_type">Type</label>
+          <input type="text" id="weather_type" placeholder="rain, snow, storm, fog, heat-wave, blizzard, etc.">
+        </div>
+        <div>
+          <label for="severity">Severity</label>
+          <input type="text" id="severity" placeholder="mild, moderate, severe, catastrophic">
+        </div>
+        <div>
+          <label for="season">Season</label>
+          <input type="text" id="season" placeholder="spring, summer, autumn, winter">
+        </div>
+        <div>
+          <label for="environment">Environment</label>
+          <input type="text" id="environment" placeholder="plains, mountains, forest, desert, coastal, etc.">
+        </div>
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, medieval, sci-fi, modern, horror, etc.">
+        </div>
+      </div>
+      
+      <button id="generate-btn" class="generate-btn">Generate Weather</button>
+      
+      <div class="output waiting" id="output">
+        Waiting for input... Click "Generate Weather" to create weather.
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('generate-btn').addEventListener('click', async () => {
+        const output = document.getElementById('output');
+        const button = document.getElementById('generate-btn');
+        
+        output.className = 'output loading';
+        output.textContent = "🎲 Conjuring your weather...";
+        button.disabled = true;
+        button.textContent = "Generating...";
+        
+        const params = new URLSearchParams({
+          weather_type: document.getElementById('weather_type').value || '',
+          severity: document.getElementById('severity').value || '',
+          season: document.getElementById('season').value || '',
+          environment: document.getElementById('environment').value || '',
+          genre: document.getElementById('genre').value || ''
+        });
+        
+        try {
+          const response = await fetch(`http://localhost:8000/weather?${params}`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          
+          const data = await response.json();
+          output.className = 'output';
+          output.textContent = data.weather;
+          
+        } catch (error) {
+          output.className = 'output error';
+          output.textContent = "❌ Error generating weather. Please check your connection and try again.";
+          console.error('Generation error:', error);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Weather";
+        }
+      });
+    </script>
+  </body>
+</html>

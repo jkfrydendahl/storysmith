@@ -7,6 +7,7 @@ from promts.treasure import generate_treasure
 from promts.event import generate_event
 from promts.organization import generate_organization
 from promts.region import generate_region
+from promts.weather import generate_weather
 
 app = typer.Typer()
 
@@ -56,6 +57,12 @@ def organization(org_type: str = "", size: str = "", influence: str = "", focus:
 def region(region_type: str = "", size: str = "", terrain: str = "", climate: str = "", genre: str = ""):
     """Generate a region with specified traits. Leave parameters empty for complete randomization. Regions are large geographical areas like kingdoms, provinces, or wilderness zones."""
     result = generate_region(region_type, size, terrain, climate, genre)
+    print("\n" + result)
+
+@app.command()
+def weather(weather_type: str = "", severity: str = "", season: str = "", environment: str = "", genre: str = ""):
+    """Generate weather with specified traits. Leave parameters empty for complete randomization. Severity ranges from mild to catastrophic."""
+    result = generate_weather(weather_type, severity, season, environment, genre)
     print("\n" + result)
 
 if __name__ == "__main__":
