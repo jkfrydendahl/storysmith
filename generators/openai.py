@@ -46,8 +46,14 @@ def call_openai(prompt: str) -> str:
             model="gpt-5.2",
             messages=[{"role": "user", "content": prompt}],
             temperature=1.0,
-            max_completion_tokens=800
+            max_completion_tokens=1200
         )
+        
+        # Check if the response was truncated due to token limit
+        finish_reason = response["choices"][0].get("finish_reason")
+        if finish_reason == "length":
+            print("Warning: Response was truncated due to token limit. Consider increasing max_completion_tokens.")
+        
         content = response["choices"][0]["message"]["content"].strip()
         if not content:
             print("Warning: Empty response from API")
