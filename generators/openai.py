@@ -24,6 +24,22 @@ def strip_markdown(text: str) -> str:
     text = re.sub(r'`(.+?)`', r'\1', text)
     return text
 
+def remove_unwanted_endings(text: str) -> str:
+    """Remove helpful but unwanted follow-up offers from the model"""
+    # Patterns that indicate the model is offering additional content
+    unwanted_patterns = [
+        r'\n\n.*?[Ii]f you[\'d]* like.*',
+        r'\n\n.*?[Ww]ould you like.*',
+        r'\n\n.*?[Ll]et me know if.*',
+        r'\n\n.*?[Ff]eel free to.*',
+        r'\n\n.*?[Ii] can (?:add|provide|create|generate).*',
+    ]
+    
+    for pattern in unwanted_patterns:
+        text = re.sub(pattern, '', text, flags=re.DOTALL)
+    
+    return text.strip()
+
 def call_openai(prompt: str) -> str:
     try:
         response = openai.ChatCompletion.create(
@@ -35,8 +51,14 @@ def call_openai(prompt: str) -> str:
         content = response["choices"][0]["message"]["content"].strip()
         if not content:
             print("Warning: Empty response from API")
-        # Strip markdown formatting before returning
+            return content
+        
+        # Strip markdown formatting
         content = strip_markdown(content)
+        
+        # Remove unwanted follow-up offers
+        content = remove_unwanted_endings(content)
+        
         return content
     except Exception as e:
         print(f"Error calling OpenAI API: {e}")
