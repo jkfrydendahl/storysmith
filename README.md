@@ -76,10 +76,10 @@ poetry run uvicorn web.main:app --reload
 Solution:
 - [x] Web UI 
 - [x] Frontend UX
+- [x] History/search functionality
 - [ ] Local model support
 - [ ] Advanced prompt customization
 - [ ] Bulk generation
-- [ ] History/search functionality
 - [ ] Randomization controls
 
 Generators:

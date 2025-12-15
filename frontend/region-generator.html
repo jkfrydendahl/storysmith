@@ -46,6 +46,7 @@
       </div>
     </div>
 
+    <script src="history.js"></script>
     <script>
       document.getElementById('generate-btn').addEventListener('click', async () => {
         const output = document.getElementById('output');
@@ -56,12 +57,18 @@
         button.disabled = true;
         button.textContent = "Generating...";
         
+        const regionType = document.getElementById('region_type').value || '';
+        const size = document.getElementById('size').value || '';
+        const terrain = document.getElementById('terrain').value || '';
+        const climate = document.getElementById('climate').value || '';
+        const genre = document.getElementById('genre').value || '';
+        
         const params = new URLSearchParams({
-          region_type: document.getElementById('region_type').value || '',
-          size: document.getElementById('size').value || '',
-          terrain: document.getElementById('terrain').value || '',
-          climate: document.getElementById('climate').value || '',
-          genre: document.getElementById('genre').value || ''
+          region_type: regionType,
+          size: size,
+          terrain: terrain,
+          climate: climate,
+          genre: genre
         });
         
         try {
@@ -74,6 +81,15 @@
           const data = await response.json();
           output.className = 'output';
           output.textContent = data.region;
+          
+          // Save to history
+          HistoryManager.save('region', {
+            type: regionType,
+            size: size,
+            terrain: terrain,
+            climate: climate,
+            genre: genre
+          }, data.region);
           
         } catch (error) {
           output.className = 'output error';

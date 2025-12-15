@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History - Storysmith</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .history-controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .history-search {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .history-filter {
+        min-width: 150px;
+      }
+
+      .history-stats {
+        text-align: center;
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .history-item {
+        background: var(--card-background);
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        transition: var(--transition);
+      }
+
+      .history-item:hover {
+        border-color: var(--secondary-color);
+        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
+      }
+
+      .history-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.8rem;
+      }
+
+      .history-type {
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+      }
+
+      .history-timestamp {
+        color: var(--text-light);
+        font-size: 0.85rem;
+      }
+
+      .history-parameters {
+        color: var(--text-light);
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+        font-style: italic;
+      }
+
+      .history-content {
+        background: var(--input-background);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 0.8rem;
+        white-space: pre-wrap;
+        font-size: 0.9rem;
+        max-height: 200px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .history-content.expanded {
+        max-height: none;
+      }
+
+      .history-content::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: linear-gradient(transparent, var(--input-background));
+        pointer-events: none;
+      }
+
+      .history-content.expanded::after {
+        display: none;
+      }
+
+      .history-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .history-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        border: 1px solid var(--border-color);
+        background: white;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .history-btn:hover {
+        border-color: var(--secondary-color);
+        color: var(--secondary-color);
+      }
+
+      .history-btn.danger:hover {
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .clear-all-btn {
+        background: var(--accent-color);
+        color: white;
+        border: none;
+      }
+
+      .clear-all-btn:hover {
+        background: #c0392b;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--text-light);
+      }
+
+      .empty-state-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>📚 Generation History</h1>
+      
+      <div class="history-stats" id="stats">
+        Loading history...
+      </div>
+
+      <div class="history-controls">
+        <input 
+          type="text" 
+          id="search" 
+          class="history-search" 
+          placeholder="Search history..."
+        >
+        <select id="filter" class="history-filter">
+          <option value="all">All Types</option>
+          <option value="character">👤 Characters</option>
+          <option value="location">🗺️ Locations</option>
+          <option value="item">⚔️ Items</option>
+          <option value="treasure">🏆 Treasure</option>
+          <option value="adventure">🗡️ Adventures</option>
+          <option value="event">🎭 Events</option>
+          <option value="organization">🏛️ Organizations</option>
+          <option value="region">🗺️ Regions</option>
+          <option value="weather">🌤️ Weather</option>
+        </select>
+        <button class="history-btn clear-all-btn" onclick="clearAllHistory()">
+          Clear All
+        </button>
+      </div>
+
+      <div id="historyList">
+        <!-- History items will be inserted here -->
+      </div>
+    </div>
+
+    <script src="history.js"></script>
+    <script>
+      let allItems = [];
+
+      function loadHistory() {
+        allItems = HistoryManager.getAll();
+        updateStats();
+        renderHistory(allItems);
+      }
+
+      function updateStats() {
+        const stats = document.getElementById('stats');
+        const count = allItems.length;
+        if (count === 0) {
+          stats.textContent = 'No generations yet';
+        } else {
+          stats.textContent = `${count} generation${count > 1 ? 's' : ''} saved`;
+        }
+      }
+
+      function renderHistory(items) {
+        const container = document.getElementById('historyList');
+        
+        if (items.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">📭</div>
+              <p>No history to display.</p>
+              <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+                Generate some content to see it here!
+              </p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = items.map(item => `
+          <div class="history-item" data-id="${item.id}">
+            <div class="history-header">
+              <div class="history-type">${HistoryManager.getTypeDisplayName(item.type)}</div>
+              <div class="history-timestamp">${HistoryManager.formatTimestamp(item.timestamp)}</div>
+            </div>
+            ${getParametersText(item.parameters)}
+            <div class="history-content" id="content-${item.id}">
+              ${escapeHtml(item.content)}
+            </div>
+            <div class="history-actions">
+              <button class="history-btn" onclick="toggleExpand(${item.id})">
+                <span id="toggle-${item.id}">Expand</span>
+              </button>
+              <button class="history-btn" onclick="copyToClipboard(${item.id})">
+                Copy
+              </button>
+              <button class="history-btn danger" onclick="deleteItem(${item.id})">
+                Delete
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function getParametersText(params) {
+        const nonEmpty = Object.entries(params)
+          .filter(([key, val]) => val && val.trim())
+          .map(([key, val]) => `${key}: ${val}`);
+        
+        if (nonEmpty.length === 0) return '';
+        
+        return `<div class="history-parameters">${nonEmpty.join(' • ')}</div>`;
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function toggleExpand(id) {
+        const content = document.getElementById(`content-${id}`);
+        const toggleBtn = document.getElementById(`toggle-${id}`);
+        
+        content.classList.toggle('expanded');
+        toggleBtn.textContent = content.classList.contains('expanded') ? 'Collapse' : 'Expand';
+      }
+
+      function copyToClipboard(id) {
+        const item = allItems.find(i => i.id === id);
+        if (!item) return;
+        
+        navigator.clipboard.writeText(item.content).then(() => {
+          alert('Copied to clipboard!');
+        }).catch(err => {
+          console.error('Failed to copy:', err);
+        });
+      }
+
+      function deleteItem(id) {
+        if (!confirm('Delete this generation from history?')) return;
+        
+        if (HistoryManager.delete(id)) {
+          loadHistory();
+        }
+      }
+
+      function clearAllHistory() {
+        if (!confirm('Are you sure you want to clear ALL history? This cannot be undone.')) return;
+        
+        if (HistoryManager.clearAll()) {
+          loadHistory();
+        }
+      }
+
+      function filterHistory() {
+        const searchTerm = document.getElementById('search').value.toLowerCase();
+        const filterType = document.getElementById('filter').value;
+        
+        let filtered = allItems;
+        
+        // Filter by type
+        if (filterType !== 'all') {
+          filtered = filtered.filter(item => item.type === filterType);
+        }
+        
+        // Filter by search
+        if (searchTerm) {
+          filtered = filtered.filter(item =>
+            item.content.toLowerCase().includes(searchTerm) ||
+            Object.values(item.parameters).some(val =>
+              String(val).toLowerCase().includes(searchTerm)
+            )
+          );
+        }
+        
+        renderHistory(filtered);
+      }
+
+      // Event listeners
+      document.getElementById('search').addEventListener('input', filterHistory);
+      document.getElementById('filter').addEventListener('change', filterHistory);
+
+      // Initial load
+      loadHistory();
+    </script>
+  </body>
+</html>

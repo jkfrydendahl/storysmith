@@ -48,6 +48,7 @@
       </div>
     </div>
 
+    <script src="history.js"></script>
     <script>
       document.getElementById('generate-btn').addEventListener('click', async () => {
         const output = document.getElementById('output');
@@ -58,12 +59,18 @@
         button.disabled = true;
         button.textContent = "Generating...";
         
+        const treasureType = document.getElementById('treasure_type').value || '';
+        const value = document.getElementById('value').value || '';
+        const origin = document.getElementById('origin').value || '';
+        const condition = document.getElementById('condition').value || '';
+        const genre = document.getElementById('genre').value || '';
+        
         const params = new URLSearchParams({
-          treasure_type: document.getElementById('treasure_type').value || '',
-          value: document.getElementById('value').value || '',
-          origin: document.getElementById('origin').value || '',
-          condition: document.getElementById('condition').value || '',
-          genre: document.getElementById('genre').value || ''
+          treasure_type: treasureType,
+          value: value,
+          origin: origin,
+          condition: condition,
+          genre: genre
         });
         
         try {
@@ -76,6 +83,15 @@
           const data = await response.json();
           output.className = 'output';
           output.textContent = data.treasure;
+          
+          // Save to history
+          HistoryManager.save('treasure', {
+            type: treasureType,
+            value: value,
+            origin: origin,
+            condition: condition,
+            genre: genre
+          }, data.treasure);
           
         } catch (error) {
           output.className = 'output error';

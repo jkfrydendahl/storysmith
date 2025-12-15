@@ -46,6 +46,7 @@
       </div>
     </div>
 
+    <script src="history.js"></script>
     <script>
       document.getElementById('generate-btn').addEventListener('click', async () => {
         const output = document.getElementById('output');
@@ -56,12 +57,18 @@
         button.disabled = true;
         button.textContent = "Generating...";
         
+        const eventType = document.getElementById('event_type').value || '';
+        const scale = document.getElementById('scale').value || '';
+        const tone = document.getElementById('tone').value || '';
+        const setting = document.getElementById('setting').value || '';
+        const genre = document.getElementById('genre').value || '';
+        
         const params = new URLSearchParams({
-          event_type: document.getElementById('event_type').value || '',
-          scale: document.getElementById('scale').value || '',
-          tone: document.getElementById('tone').value || '',
-          setting: document.getElementById('setting').value || '',
-          genre: document.getElementById('genre').value || ''
+          event_type: eventType,
+          scale: scale,
+          tone: tone,
+          setting: setting,
+          genre: genre
         });
         
         try {
@@ -74,6 +81,15 @@
           const data = await response.json();
           output.className = 'output';
           output.textContent = data.event;
+          
+          // Save to history
+          HistoryManager.save('event', {
+            type: eventType,
+            scale: scale,
+            tone: tone,
+            setting: setting,
+            genre: genre
+          }, data.event);
           
         } catch (error) {
           output.className = 'output error';

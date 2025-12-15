@@ -46,6 +46,7 @@
       </div>
     </div>
 
+    <script src="history.js"></script>
     <script>
       document.getElementById('generate-btn').addEventListener('click', async () => {
         const output = document.getElementById('output');
@@ -56,12 +57,18 @@
         button.disabled = true;
         button.textContent = "Generating...";
         
+        const weatherType = document.getElementById('weather_type').value || '';
+        const severity = document.getElementById('severity').value || '';
+        const season = document.getElementById('season').value || '';
+        const environment = document.getElementById('environment').value || '';
+        const genre = document.getElementById('genre').value || '';
+        
         const params = new URLSearchParams({
-          weather_type: document.getElementById('weather_type').value || '',
-          severity: document.getElementById('severity').value || '',
-          season: document.getElementById('season').value || '',
-          environment: document.getElementById('environment').value || '',
-          genre: document.getElementById('genre').value || ''
+          weather_type: weatherType,
+          severity: severity,
+          season: season,
+          environment: environment,
+          genre: genre
         });
         
         try {
@@ -74,6 +81,15 @@
           const data = await response.json();
           output.className = 'output';
           output.textContent = data.weather;
+          
+          // Save to history
+          HistoryManager.save('weather', {
+            type: weatherType,
+            severity: severity,
+            season: season,
+            environment: environment,
+            genre: genre
+          }, data.weather);
           
         } catch (error) {
           output.className = 'output error';

@@ -43,6 +43,7 @@
       <div class="output waiting" id="output">Waiting for input... Click "Generate Adventure" to create an adventure.</div>
     </div>
 
+    <script src="history.js"></script>
     <script>
       async function generateAdventure() {
         const adventureType = document.getElementById('adventure_type').value;
@@ -76,6 +77,16 @@
           const data = await res.json();
           output.textContent = data.adventure;
           output.className = 'output';
+          
+          // Save to history
+          HistoryManager.save('adventure', {
+            type: adventureType,
+            length: length,
+            theme: theme,
+            difficulty: difficulty,
+            genre: genre
+          }, data.adventure);
+          
         } catch (err) {
           output.textContent = "❌ Error generating adventure. Please check that the server is running and try again.";
           output.className = 'output error';

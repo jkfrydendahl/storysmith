@@ -55,6 +55,7 @@
       </div>
     </div>
 
+    <script src="history.js"></script>
     <script>
   async function generateCharacter() {
     const race = document.getElementById('race').value;
@@ -89,6 +90,15 @@
       const data = await res.json();
       output.className = 'output';
       output.textContent = data.npc;
+      
+      // Save to history
+      HistoryManager.save('character', {
+        race: race,
+        gender: gender,
+        class: charClass,
+        personality: personality,
+        genre: genre
+      }, data.npc);
       
     } catch (err) {
       output.className = 'output error';

@@ -43,6 +43,7 @@
       <div class="output waiting" id="output">Waiting for input... Click "Generate Location" to create a location.</div>
     </div>
 
+    <script src="history.js"></script>
     <script>
       async function generateLocation() {
         const locationType = document.getElementById('location_type').value;
@@ -76,6 +77,16 @@
           const data = await res.json();
           output.textContent = data.location;
           output.className = 'output';
+          
+          // Save to history
+          HistoryManager.save('location', {
+            type: locationType,
+            size: size,
+            setting: setting,
+            tone: tone,
+            genre: genre
+          }, data.location);
+          
         } catch (err) {
           output.textContent = "❌ Error generating location. Please check that the server is running and try again.";
           output.className = 'output error';

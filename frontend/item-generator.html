@@ -43,6 +43,7 @@
       <div class="output waiting" id="output">Waiting for input... Click "Generate Item" to create an item.</div>
     </div>
 
+    <script src="history.js"></script>
     <script>
       async function generateItem() {
         const itemType = document.getElementById('item_type').value;
@@ -76,6 +77,16 @@
           const data = await res.json();
           output.textContent = data.item;
           output.className = 'output';
+          
+          // Save to history
+          HistoryManager.save('item', {
+            type: itemType,
+            rarity: rarity,
+            material: material,
+            style: style,
+            genre: genre
+          }, data.item);
+          
         } catch (err) {
           output.textContent = "❌ Error generating item. Please check that the server is running and try again.";
           output.className = 'output error';
