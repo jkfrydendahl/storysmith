@@ -236,6 +236,9 @@ input::placeholder {
 }
 
 .output.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-color: var(--accent-color);
   background: rgba(231, 76, 60, 0.05);
   color: var(--accent-color);

@@ -84,7 +84,10 @@
       const res = await fetch(`http://localhost:8000/npc?${params}`);
       
       if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        // Try to get the error detail from the response
+        const errorData = await res.json().catch(() => null);
+        const errorMessage = errorData?.detail || `HTTP ${res.status}: ${res.statusText}`;
+        throw new Error(errorMessage);
       }
       
       const data = await res.json();
@@ -102,7 +105,7 @@
       
     } catch (err) {
       output.className = 'output error';
-      output.textContent = "❌ Error generating character. Please check your connection and try again.";
+      output.textContent = `❌ ${err.message}`;
       console.error('Generation error:', err);
     } finally {
       // Reset button state

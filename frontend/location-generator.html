@@ -71,7 +71,9 @@
           const res = await fetch(`http://localhost:8000/location?${params}`);
           
           if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
+            const errorData = await res.json().catch(() => null);
+            const errorMessage = errorData?.detail || `HTTP ${res.status}: ${res.statusText}`;
+            throw new Error(errorMessage);
           }
           
           const data = await res.json();
@@ -88,7 +90,7 @@
           }, data.location);
           
         } catch (err) {
-          output.textContent = "❌ Error generating location. Please check that the server is running and try again.";
+          output.textContent = `❌ ${err.message}`;
           output.className = 'output error';
           console.error('Generation error:', err);
         } finally {

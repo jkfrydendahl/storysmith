@@ -8,6 +8,13 @@ load_dotenv()
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
+# Validate API key is set
+if not openai.api_key:
+    raise ValueError(
+        "OPENAI_API_KEY not found in environment variables. "
+        "Please set it in your .env file or environment."
+    )
+
 def strip_markdown(text: str) -> str:
     """Remove common markdown formatting from text"""
     # Remove headers (## Header)
