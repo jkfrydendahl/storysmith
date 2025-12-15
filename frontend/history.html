@@ -21,6 +21,26 @@
 
       .history-filter {
         min-width: 150px;
+        padding: 0.8rem;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: var(--input-background);
+        font-size: 0.9rem;
+        font-family: inherit;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .history-filter:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        background: white;
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+      }
+
+      .history-filter:hover {
+        border-color: var(--secondary-color);
       }
 
       .history-stats {
@@ -133,6 +153,7 @@
 
       .clear-all-btn:hover {
         background: #c0392b;
+        color: white;
       }
 
       .empty-state {
