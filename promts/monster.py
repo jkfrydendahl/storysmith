@@ -1,8 +1,8 @@
 from generators.openai import call_openai
 
 class MonsterPrompt:
-    def __init__(self, monster_type: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
-        self.monster_type = monster_type or "any type"
+    def __init__(self, species: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
+        self.species = species or "any species"
         self.size = size or "any size"
         self.behavior = behavior or "any behavior"
         self.habitat = habitat or "any habitat"
@@ -10,7 +10,7 @@ class MonsterPrompt:
 
     def render(self) -> str:
         return f"""Generate a detailed monster or creature for a tabletop RPG with the following parameters:
-- Type: {self.monster_type} (e.g., beast, dragon, undead, aberration, elemental, fey, fiend, construct, humanoid, etc.)
+- Species: {self.species} (e.g., beast, dragon, undead, aberration, elemental, fey, fiend, construct, humanoid, etc.)
 - Size: {self.size} (e.g., tiny, small, medium, large, huge, gargantuan)
 - Behavior: {self.behavior} (e.g., aggressive, passive, territorial, curious, cunning, mindless, protective, predatory, etc.)
 - Habitat: {self.habitat} (e.g., forest, desert, mountains, underground, aquatic, urban, etc.)
@@ -47,6 +47,6 @@ Create a comprehensive monster entry with the following sections:
 
 Keep the tone consistent with the {self.genre} genre. Make the creature memorable, balanced, and usable in gameplay. Focus on vivid descriptions and practical game mechanics."""
 
-def generate_monster(monster_type: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = "") -> str:
-    prompt = MonsterPrompt(monster_type, size, behavior, habitat, genre)
+def generate_monster(species: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = "") -> str:
+    prompt = MonsterPrompt(species, size, behavior, habitat, genre)
     return call_openai(prompt.render())

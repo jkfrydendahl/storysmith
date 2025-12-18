@@ -3,11 +3,11 @@ from generators.openai import call_openai
 import random
 
 class TreasurePrompt(PromptTemplate):
-    def render(self, treasure_type: str, value: str, origin: str, condition: str, genre: str) -> str:
+    def render(self, category: str, value: str, origin: str, condition: str, genre: str) -> str:
         random_seed = random.randint(1000, 9999)
         
         # Handle empty parameters by using "random" or more descriptive language
-        type_param = treasure_type if treasure_type.strip() and treasure_type.strip().lower() != "undefined" else "random treasure or trinket"
+        category_param = category if category.strip() and category.strip().lower() != "undefined" else "random treasure or trinket"
         value_param = value if value.strip() and value.strip().lower() != "undefined" else "appropriate value"
         origin_param = origin if origin.strip() and origin.strip().lower() != "undefined" else "mysterious origin"
         condition_param = condition if condition.strip() and condition.strip().lower() != "undefined" else "varying condition"
@@ -15,7 +15,7 @@ class TreasurePrompt(PromptTemplate):
         
         return (
             f"Create a unique tabletop RPG treasure or trinket with the following parameters:\n"
-            f"Type: {type_param}\n"
+            f"Category: {category_param}\n"
             f"Value: {value_param}\n"
             f"Origin: {origin_param}\n"
             f"Condition: {condition_param}\n"
@@ -33,6 +33,6 @@ class TreasurePrompt(PromptTemplate):
             f"Do not include the variation seed number in your response."
         )
 
-def generate_treasure(treasure_type: str, value: str, origin: str, condition: str, genre: str) -> str:
-    prompt = TreasurePrompt().render(treasure_type=treasure_type, value=value, origin=origin, condition=condition, genre=genre)
+def generate_treasure(category: str, value: str, origin: str, condition: str, genre: str) -> str:
+    prompt = TreasurePrompt().render(category=category, value=value, origin=origin, condition=condition, genre=genre)
     return call_openai(prompt)

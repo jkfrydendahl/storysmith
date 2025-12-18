@@ -18,8 +18,8 @@
       
       <div class="form-grid">
         <div>
-          <label for="weather_type">Type</label>
-          <input type="text" id="weather_type" placeholder="rain, snow, storm, fog, heat-wave, blizzard, etc.">
+          <label for="phenomenon">Phenomenon</label>
+          <input type="text" id="phenomenon" placeholder="rain, snow, storm, fog, heat-wave, blizzard, etc.">
         </div>
         <div>
           <label for="severity">Severity</label>
@@ -57,14 +57,14 @@
         button.disabled = true;
         button.textContent = "Generating...";
         
-        const weatherType = document.getElementById('weather_type').value || '';
+        const phenomenon = document.getElementById('phenomenon').value || '';
         const severity = document.getElementById('severity').value || '';
         const season = document.getElementById('season').value || '';
         const environment = document.getElementById('environment').value || '';
         const genre = document.getElementById('genre').value || '';
         
         const params = new URLSearchParams({
-          weather_type: weatherType,
+          phenomenon: phenomenon,
           severity: severity,
           season: season,
           environment: environment,
@@ -86,7 +86,7 @@
           
           // Save to history
           HistoryManager.save('weather', {
-            type: weatherType,
+            phenomenon: phenomenon,
             severity: severity,
             season: season,
             environment: environment,

@@ -18,8 +18,8 @@
       
       <div class="form-grid">
         <div>
-          <label for="org_type">Type</label>
-          <input type="text" id="org_type" placeholder="guild, cult, merchant-company, noble-house, criminal-syndicate, etc.">
+          <label for="structure">Structure</label>
+          <input type="text" id="structure" placeholder="guild, cult, merchant-company, noble-house, criminal-syndicate, etc.">
         </div>
         <div>
           <label for="size">Size</label>
@@ -57,14 +57,14 @@
         button.disabled = true;
         button.textContent = "Generating...";
         
-        const orgType = document.getElementById('org_type').value || '';
+        const structure = document.getElementById('structure').value || '';
         const size = document.getElementById('size').value || '';
         const influence = document.getElementById('influence').value || '';
         const focus = document.getElementById('focus').value || '';
         const genre = document.getElementById('genre').value || '';
         
         const params = new URLSearchParams({
-          org_type: orgType,
+          structure: structure,
           size: size,
           influence: influence,
           focus: focus,
@@ -86,7 +86,7 @@
           
           // Save to history
           HistoryManager.save('organization', {
-            type: orgType,
+            structure: structure,
             size: size,
             influence: influence,
             focus: focus,

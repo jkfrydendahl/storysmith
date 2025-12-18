@@ -21,8 +21,8 @@
       
       <div class="form-grid">
         <div>
-          <label for="monster_type">Type</label>
-          <input type="text" id="monster_type" placeholder="beast, dragon, undead, aberration, elemental, fey, fiend, etc.">
+          <label for="species">Species</label>
+          <input type="text" id="species" placeholder="beast, dragon, undead, aberration, elemental, fey, fiend, etc.">
         </div>
         
         <div>
@@ -58,7 +58,7 @@
     <script src="js/history.js"></script>
     <script>
       async function generateMonster() {
-        const monsterType = document.getElementById('monster_type').value;
+        const species = document.getElementById('species').value;
         const size = document.getElementById('size').value;
         const behavior = document.getElementById('behavior').value;
         const habitat = document.getElementById('habitat').value;
@@ -74,7 +74,7 @@
 
         try {
           const params = new URLSearchParams({ 
-            monster_type: monsterType || '', 
+            species: species || '', 
             size: size || '', 
             behavior: behavior || '', 
             habitat: habitat || '', 
@@ -95,7 +95,7 @@
           
           // Save to history
           HistoryManager.save('monster', {
-            type: monsterType,
+            species: species,
             size: size,
             behavior: behavior,
             habitat: habitat,

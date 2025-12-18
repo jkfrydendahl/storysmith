@@ -207,19 +207,19 @@ def get_adventure(
 @app.get("/treasure")
 def get_treasure(
     request: Request,
-    treasure_type: str = Query(""), 
+    category: str = Query(""), 
     value: str = Query(""), 
     origin: str = Query(""), 
     condition: str = Query(""), 
     genre: str = Query("")
 ):
     check_rate_limit(request.client.host)
-    treasure_type = validate_input(treasure_type, field_name="Treasure type")
+    category = validate_input(category, field_name="Category")
     value = validate_input(value, field_name="Value")
     origin = validate_input(origin, field_name="Origin")
     condition = validate_input(condition, field_name="Condition")
     genre = validate_input(genre, field_name="Genre")
-    result = generate_treasure(treasure_type, value, origin, condition, genre)
+    result = generate_treasure(category, value, origin, condition, genre)
     return {"treasure": result}
 
 @app.get("/event")
@@ -243,19 +243,19 @@ def get_event(
 @app.get("/organization")
 def get_organization(
     request: Request,
-    org_type: str = Query(""), 
+    structure: str = Query(""), 
     size: str = Query(""), 
     influence: str = Query(""), 
     focus: str = Query(""), 
     genre: str = Query("")
 ):
     check_rate_limit(request.client.host)
-    org_type = validate_input(org_type, field_name="Organization type")
+    structure = validate_input(structure, field_name="Structure")
     size = validate_input(size, field_name="Size")
     influence = validate_input(influence, field_name="Influence")
     focus = validate_input(focus, field_name="Focus")
     genre = validate_input(genre, field_name="Genre")
-    result = generate_organization(org_type, size, influence, focus, genre)
+    result = generate_organization(structure, size, influence, focus, genre)
     return {"organization": result}
 
 @app.get("/region")
@@ -279,37 +279,37 @@ def get_region(
 @app.get("/weather")
 def get_weather(
     request: Request,
-    weather_type: str = Query(""), 
+    phenomenon: str = Query(""), 
     severity: str = Query(""), 
     season: str = Query(""), 
     environment: str = Query(""), 
     genre: str = Query("")
 ):
     check_rate_limit(request.client.host)
-    weather_type = validate_input(weather_type, field_name="Weather type")
+    phenomenon = validate_input(phenomenon, field_name="Phenomenon")
     severity = validate_input(severity, field_name="Severity")
     season = validate_input(season, field_name="Season")
     environment = validate_input(environment, field_name="Environment")
     genre = validate_input(genre, field_name="Genre")
-    result = generate_weather(weather_type, severity, season, environment, genre)
+    result = generate_weather(phenomenon, severity, season, environment, genre)
     return {"weather": result}
 
 @app.get("/monster")
 def get_monster(
     request: Request,
-    monster_type: str = Query(""),
+    species: str = Query(""),
     size: str = Query(""),
     behavior: str = Query(""),
     habitat: str = Query(""),
     genre: str = Query("")
 ):
     check_rate_limit(request.client.host)
-    monster_type = validate_input(monster_type, field_name="Monster type")
+    species = validate_input(species, field_name="Species")
     size = validate_input(size, field_name="Size")
     behavior = validate_input(behavior, field_name="Behavior")
     habitat = validate_input(habitat, field_name="Habitat")
     genre = validate_input(genre, field_name="Genre")
-    result = generate_monster(monster_type, size, behavior, habitat, genre)
+    result = generate_monster(species, size, behavior, habitat, genre)
     return {"monster": result}
 
 @app.get("/spell")

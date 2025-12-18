@@ -3,11 +3,11 @@ from generators.openai import call_openai
 import random
 
 class WeatherPrompt(PromptTemplate):
-    def render(self, weather_type: str, severity: str, season: str, environment: str, genre: str) -> str:
+    def render(self, phenomenon: str, severity: str, season: str, environment: str, genre: str) -> str:
         random_seed = random.randint(1000, 9999)
         
         # Handle empty parameters by using descriptive language
-        type_param = weather_type if weather_type.strip() and weather_type.strip().lower() != "undefined" else "interesting weather"
+        phenomenon_param = phenomenon if phenomenon.strip() and phenomenon.strip().lower() != "undefined" else "interesting weather"
         severity_param = severity if severity.strip() and severity.strip().lower() != "undefined" else "appropriate severity"
         season_param = season if season.strip() and season.strip().lower() != "undefined" else "any season"
         environment_param = environment if environment.strip() and environment.strip().lower() != "undefined" else "suitable environment"
@@ -15,7 +15,7 @@ class WeatherPrompt(PromptTemplate):
         
         return (
             f"Create a unique tabletop RPG weather event with the following parameters:\n"
-            f"Weather Type: {type_param}\n"
+            f"Phenomenon: {phenomenon_param}\n"
             f"Severity: {severity_param}\n"
             f"Season: {season_param}\n"
             f"Environment: {environment_param}\n"
@@ -37,6 +37,6 @@ class WeatherPrompt(PromptTemplate):
             f"Do not include the variation seed number in your response."
         )
 
-def generate_weather(weather_type: str, severity: str, season: str, environment: str, genre: str) -> str:
-    prompt = WeatherPrompt().render(weather_type=weather_type, severity=severity, season=season, environment=environment, genre=genre)
+def generate_weather(phenomenon: str, severity: str, season: str, environment: str, genre: str) -> str:
+    prompt = WeatherPrompt().render(phenomenon=phenomenon, severity=severity, season=season, environment=environment, genre=genre)
     return call_openai(prompt)

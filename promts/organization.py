@@ -3,11 +3,11 @@ from generators.openai import call_openai
 import random
 
 class OrganizationPrompt(PromptTemplate):
-    def render(self, org_type: str, size: str, influence: str, focus: str, genre: str) -> str:
+    def render(self, structure: str, size: str, influence: str, focus: str, genre: str) -> str:
         random_seed = random.randint(1000, 9999)
         
         # Handle empty parameters by using descriptive language
-        type_param = org_type if org_type.strip() and org_type.strip().lower() != "undefined" else "interesting organization"
+        structure_param = structure if structure.strip() and structure.strip().lower() != "undefined" else "interesting organization"
         size_param = size if size.strip() and size.strip().lower() != "undefined" else "appropriate size"
         influence_param = influence if influence.strip() and influence.strip().lower() != "undefined" else "suitable influence"
         focus_param = focus if focus.strip() and focus.strip().lower() != "undefined" else "meaningful purpose"
@@ -15,7 +15,7 @@ class OrganizationPrompt(PromptTemplate):
         
         return (
             f"Create a unique tabletop RPG organization with the following parameters:\n"
-            f"Organization Type: {type_param}\n"
+            f"Structure: {structure_param}\n"
             f"Size: {size_param}\n"
             f"Influence: {influence_param}\n"
             f"Focus: {focus_param}\n"
@@ -38,6 +38,6 @@ class OrganizationPrompt(PromptTemplate):
             f"Do not include the variation seed number in your response."
         )
 
-def generate_organization(org_type: str, size: str, influence: str, focus: str, genre: str) -> str:
-    prompt = OrganizationPrompt().render(org_type=org_type, size=size, influence=influence, focus=focus, genre=genre)
+def generate_organization(structure: str, size: str, influence: str, focus: str, genre: str) -> str:
+    prompt = OrganizationPrompt().render(structure=structure, size=size, influence=influence, focus=focus, genre=genre)
     return call_openai(prompt)

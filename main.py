@@ -38,9 +38,9 @@ def adventure(adventure_type: str = "", length: str = "", theme: str = "", diffi
     print("\n" + result)
 
 @app.command()
-def treasure(treasure_type: str = "", value: str = "", origin: str = "", condition: str = "", genre: str = ""):
-    """Generate treasures and trinkets with specified traits. Leave parameters empty for complete randomization. Type could be hoard, jewelry, coins, artifact, etc."""
-    result = generate_treasure(treasure_type, value, origin, condition, genre)
+def treasure(category: str = "", value: str = "", origin: str = "", condition: str = "", genre: str = ""):
+    """Generate treasures and trinkets with specified traits. Leave parameters empty for complete randomization. Category could be hoard, jewelry, coins, artifact, gems, art, etc."""
+    result = generate_treasure(category, value, origin, condition, genre)
     print("\n" + result)
 
 @app.command()
@@ -50,9 +50,9 @@ def event(event_type: str = "", scale: str = "", tone: str = "", setting: str = 
     print("\n" + result)
 
 @app.command()
-def organization(org_type: str = "", size: str = "", influence: str = "", focus: str = "", genre: str = ""):
-    """Generate an organization with specified traits. Leave parameters empty for complete randomization. Organizations include guilds, cults, companies, noble houses, etc."""
-    result = generate_organization(org_type, size, influence, focus, genre)
+def organization(structure: str = "", size: str = "", influence: str = "", focus: str = "", genre: str = ""):
+    """Generate an organization with specified traits. Leave parameters empty for complete randomization. Structure could be guild, cult, military, merchants, scholars, thieves, etc."""
+    result = generate_organization(structure, size, influence, focus, genre)
     print("\n" + result)
 
 @app.command()
@@ -62,15 +62,15 @@ def region(region_type: str = "", size: str = "", terrain: str = "", climate: st
     print("\n" + result)
 
 @app.command()
-def weather(weather_type: str = "", severity: str = "", season: str = "", environment: str = "", genre: str = ""):
-    """Generate weather with specified traits. Leave parameters empty for complete randomization. Severity ranges from mild to catastrophic."""
-    result = generate_weather(weather_type, severity, season, environment, genre)
+def weather(phenomenon: str = "", severity: str = "", season: str = "", environment: str = "", genre: str = ""):
+    """Generate weather with specified traits. Leave parameters empty for complete randomization. Phenomenon could be storm, fog, blizzard, heatwave, rain, snow, etc."""
+    result = generate_weather(phenomenon, severity, season, environment, genre)
     print("\n" + result)
 
 @app.command()
-def monster(monster_type: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
-    """Generate a monster or creature with specified traits. Leave parameters empty for complete randomization. Type could be beast, dragon, undead, aberration, etc."""
-    result = generate_monster(monster_type, size, behavior, habitat, genre)
+def monster(species: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
+    """Generate a monster or creature with specified traits. Leave parameters empty for complete randomization. Species could be beast, dragon, undead, aberration, elemental, etc."""
+    result = generate_monster(species, size, behavior, habitat, genre)
     print("\n" + result)
 
 @app.command()

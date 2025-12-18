@@ -18,8 +18,8 @@
       
       <div class="form-grid">
         <div>
-          <label for="treasure_type">Type</label>
-          <input type="text" id="treasure_type" placeholder="hoard, trinket, weapon, armor, jewelry, artifact, coin, gem, etc.">
+          <label for="category">Category</label>
+          <input type="text" id="category" placeholder="hoard, trinket, weapon, armor, jewelry, artifact, coin, gem, etc.">
         </div>
         <div>
           <label for="value">Value</label>
@@ -57,14 +57,14 @@
         button.disabled = true;
         button.textContent = "Generating...";
         
-        const treasureType = document.getElementById('treasure_type').value || '';
+        const category = document.getElementById('category').value || '';
         const value = document.getElementById('value').value || '';
         const origin = document.getElementById('origin').value || '';
         const condition = document.getElementById('condition').value || '';
         const genre = document.getElementById('genre').value || '';
         
         const params = new URLSearchParams({
-          treasure_type: treasureType,
+          category: category,
           value: value,
           origin: origin,
           condition: condition,
@@ -86,7 +86,7 @@
           
           // Save to history
           HistoryManager.save('treasure', {
-            type: treasureType,
+            category: category,
             value: value,
             origin: origin,
             condition: condition,
