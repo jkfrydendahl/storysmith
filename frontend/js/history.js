@@ -98,7 +98,8 @@ const HistoryManager = {
       'event': '🎭 Event',
       'organization': '🏛️ Organization',
       'region': '🗺️ Region',
-      'weather': '🌤️ Weather'
+      'weather': '🌤️ Weather',
+      'monster': '🐉 Monster'
     };
     return names[type] || type;
   },

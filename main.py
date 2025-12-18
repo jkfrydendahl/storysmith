@@ -8,6 +8,7 @@ from promts.event import generate_event
 from promts.organization import generate_organization
 from promts.region import generate_region
 from promts.weather import generate_weather
+from promts.monster import generate_monster
 
 app = typer.Typer()
 
@@ -63,6 +64,12 @@ def region(region_type: str = "", size: str = "", terrain: str = "", climate: st
 def weather(weather_type: str = "", severity: str = "", season: str = "", environment: str = "", genre: str = ""):
     """Generate weather with specified traits. Leave parameters empty for complete randomization. Severity ranges from mild to catastrophic."""
     result = generate_weather(weather_type, severity, season, environment, genre)
+    print("\n" + result)
+
+@app.command()
+def monster(monster_type: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
+    """Generate a monster or creature with specified traits. Leave parameters empty for complete randomization. Type could be beast, dragon, undead, aberration, etc."""
+    result = generate_monster(monster_type, size, behavior, habitat, genre)
     print("\n" + result)
 
 if __name__ == "__main__":

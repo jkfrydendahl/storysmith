@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Generator - Storysmith</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>🐉 Monster Generator</h1>
+      
+      <div class="tip">
+        Fill in any fields you want to customize, or leave blank for random results.
+      </div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="monster_type">Type</label>
+          <input type="text" id="monster_type" placeholder="beast, dragon, undead, aberration, elemental, fey, fiend, etc.">
+        </div>
+        
+        <div>
+          <label for="size">Size</label>
+          <input type="text" id="size" placeholder="tiny, small, medium, large, huge, gargantuan, etc.">
+        </div>
+        
+        <div>
+          <label for="behavior">Behavior</label>
+          <input type="text" id="behavior" placeholder="aggressive, passive, territorial, curious, cunning, mindless, etc.">
+        </div>
+        
+        <div>
+          <label for="habitat">Habitat</label>
+          <input type="text" id="habitat" placeholder="forest, desert, mountains, underground, aquatic, urban, etc.">
+        </div>
+        
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, post-apocalyptic, etc.">
+        </div>
+      </div>
+      
+      <button class="generate-btn" onclick="generateMonster()" id="generateBtn">
+        Generate Monster
+      </button>
+      
+      <div class="output waiting" id="output">
+        Waiting for input... Click "Generate Monster" to create a creature.
+      </div>
+    </div>
+
+    <script src="js/history.js"></script>
+    <script>
+      async function generateMonster() {
+        const monsterType = document.getElementById('monster_type').value;
+        const size = document.getElementById('size').value;
+        const behavior = document.getElementById('behavior').value;
+        const habitat = document.getElementById('habitat').value;
+        const genre = document.getElementById('genre').value;
+        const output = document.getElementById('output');
+        const button = document.getElementById('generateBtn');
+
+        // Set loading state
+        output.className = 'output loading';
+        output.textContent = "🎲 Summoning your monster...";
+        button.disabled = true;
+        button.textContent = "Generating...";
+
+        try {
+          const params = new URLSearchParams({ 
+            monster_type: monsterType || '', 
+            size: size || '', 
+            behavior: behavior || '', 
+            habitat: habitat || '', 
+            genre: genre || '' 
+          });
+          
+          const response = await fetch(`http://localhost:8000/monster?${params}`);
+          
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            const errorMessage = errorData?.detail || `HTTP ${response.status}: ${response.statusText}`;
+            throw new Error(errorMessage);
+          }
+          
+          const data = await response.json();
+          output.className = 'output';
+          output.textContent = data.monster;
+          
+          // Save to history
+          HistoryManager.save('monster', {
+            type: monsterType,
+            size: size,
+            behavior: behavior,
+            habitat: habitat,
+            genre: genre
+          }, data.monster);
+          
+        } catch (error) {
+          output.className = 'output error';
+          output.textContent = `❌ ${error.message}`;
+          console.error('Generation error:', error);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Monster";
+        }
+      }
+      
+      // Add enter key support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !document.getElementById('generateBtn').disabled) {
+          generateMonster();
+        }
+      });
+    </script>
+  </body>
+</html>
