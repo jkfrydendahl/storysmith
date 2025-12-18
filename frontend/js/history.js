@@ -100,10 +100,11 @@ const HistoryManager = {
       'region': '🗺️ Region',
       'weather': '🌤️ Weather',
       'creature': '🐉 Creature',
+      'monster': '🐉 Creature',  // Backward compatibility
       'spell': '✨ Spell',
       'deity': '⚡ Deity'
     };
-    return typeMap[type] || type;
+    return names[type] || type;
   },
 
   // Format timestamp for display

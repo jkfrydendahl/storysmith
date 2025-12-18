@@ -332,7 +332,13 @@
         
         // Filter by type
         if (filterType !== 'all') {
-          filtered = filtered.filter(item => item.type === filterType);
+          filtered = filtered.filter(item => {
+            // Treat 'monster' and 'creature' as the same for backward compatibility
+            if (filterType === 'creature' && (item.type === 'creature' || item.type === 'monster')) {
+              return true;
+            }
+            return item.type === filterType;
+          });
         }
         
         // Filter by search
