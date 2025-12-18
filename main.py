@@ -8,7 +8,7 @@ from promts.event import generate_event
 from promts.organization import generate_organization
 from promts.region import generate_region
 from promts.weather import generate_weather
-from promts.monster import generate_monster
+from promts.creature import generate_creature
 from promts.spell import generate_spell
 from promts.deity import generate_deity
 
@@ -69,10 +69,10 @@ def weather(phenomenon: str = "", severity: str = "", season: str = "", environm
     print("\n" + result)
 
 @app.command()
-def monster(species: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
-    """Generate a monster or creature with specified traits. Leave parameters empty for complete randomization. Species could be beast, dragon, undead, aberration, elemental, etc."""
-    result = generate_monster(species, size, behavior, habitat, genre)
-    print("\n" + result)
+def creature(species: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
+    """Generate a creature with specified traits. Leave parameters empty for complete randomization. Species could be beast, dragon, undead, aberration, elemental, etc."""
+    result = generate_creature(species, size, behavior, habitat, genre)
+    print(result)
 
 @app.command()
 def spell(effect: str = "", power_level: str = "", school: str = "", casting_method: str = "", genre: str = ""):

@@ -92,6 +92,6 @@ Generators:
 - [x] Organizations
 - [x] Regions
 - [x] Weather
-- [x] Monsters/Creatures
-- [x] Spells/Magic
+- [x] Creatures
+- [x] Spells
 - [x] Deities

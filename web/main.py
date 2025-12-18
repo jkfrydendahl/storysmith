@@ -16,7 +16,7 @@ from promts.event import generate_event
 from promts.organization import generate_organization
 from promts.region import generate_region
 from promts.weather import generate_weather
-from promts.monster import generate_monster
+from promts.creature import generate_creature
 from promts.spell import generate_spell
 from promts.deity import generate_deity
 
@@ -115,7 +115,7 @@ async def root():
         "- '/organization' - Generate organizations\n"
         "- '/region' - Generate regions\n"
         "- '/weather' - Generate weather\n"
-        "- '/monster' - Generate monsters\n"
+        "- '/creature' - Generate creatures\n"
         "- '/spell' - Generate spells\n"
         "- '/deity' - Generate deities\n"
         "\n"
@@ -298,8 +298,8 @@ def get_weather(
     result = generate_weather(phenomenon, severity, season, environment, genre)
     return {"weather": result}
 
-@app.get("/monster")
-def get_monster(
+@app.get("/creature")
+def get_creature(
     request: Request,
     species: str = Query(""),
     size: str = Query(""),
@@ -313,8 +313,8 @@ def get_monster(
     behavior = validate_input(behavior, field_name="Behavior")
     habitat = validate_input(habitat, field_name="Habitat")
     genre = validate_input(genre, field_name="Genre")
-    result = generate_monster(species, size, behavior, habitat, genre)
-    return {"monster": result}
+    result = generate_creature(species, size, behavior, habitat, genre)
+    return {"creature": result}
 
 @app.get("/spell")
 def get_spell(

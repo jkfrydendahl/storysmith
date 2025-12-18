@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monster Generator - Storysmith</title>
+    <title>Creature Generator - Storysmith</title>
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
@@ -13,7 +13,7 @@
         <a href="index.html">← Back to Storysmith</a>
       </div>
       
-      <h1>🐉 Monster Generator</h1>
+      <h1>🐉 Creature Generator</h1>
       
       <div class="tip">
         Fill in any fields you want to customize, or leave blank for random results.
@@ -46,18 +46,18 @@
         </div>
       </div>
       
-      <button class="generate-btn" onclick="generateMonster()" id="generateBtn">
-        Generate Monster
+      <button class="generate-btn" onclick="generateCreature()" id="generateBtn">
+        Generate Creature
       </button>
       
       <div class="output waiting" id="output">
-        Waiting for input... Click "Generate Monster" to create a creature.
+        Waiting for input... Click "Generate Creature" to create a creature.
       </div>
     </div>
 
     <script src="js/history.js"></script>
     <script>
-      async function generateMonster() {
+      async function generateCreature() {
         const species = document.getElementById('species').value;
         const size = document.getElementById('size').value;
         const behavior = document.getElementById('behavior').value;
@@ -68,7 +68,7 @@
 
         // Set loading state
         output.className = 'output loading';
-        output.textContent = "🎲 Summoning your monster...";
+        output.textContent = "🎲 Summoning your creature...";
         button.disabled = true;
         button.textContent = "Generating...";
 
@@ -81,7 +81,7 @@
             genre: genre || '' 
           });
           
-          const response = await fetch(`http://localhost:8000/monster?${params}`);
+          const response = await fetch(`http://localhost:8000/creature?${params}`);
           
           if (!response.ok) {
             const errorData = await response.json().catch(() => null);
@@ -91,16 +91,16 @@
           
           const data = await response.json();
           output.className = 'output';
-          output.textContent = data.monster;
+          output.textContent = data.creature;
           
           // Save to history
-          HistoryManager.save('monster', {
+          HistoryManager.save('creature', {
             species: species,
             size: size,
             behavior: behavior,
             habitat: habitat,
             genre: genre
-          }, data.monster);
+          }, data.creature);
           
         } catch (error) {
           output.className = 'output error';
@@ -109,14 +109,14 @@
         } finally {
           // Reset button state
           button.disabled = false;
-          button.textContent = "Generate Monster";
+          button.textContent = "Generate Creature";
         }
       }
       
       // Add enter key support
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !document.getElementById('generateBtn').disabled) {
-          generateMonster();
+          generateCreature();
         }
       });
     </script>

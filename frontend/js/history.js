@@ -99,7 +99,7 @@ const HistoryManager = {
       'organization': '🏛️ Organization',
       'region': '🗺️ Region',
       'weather': '🌤️ Weather',
-      'monster': '🐉 Monster',
+      'creature': '🐉 Creature',
       'spell': '✨ Spell',
       'deity': '⚡ Deity'
     };
