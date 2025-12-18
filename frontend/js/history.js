@@ -99,7 +99,8 @@ const HistoryManager = {
       'organization': '🏛️ Organization',
       'region': '🗺️ Region',
       'weather': '🌤️ Weather',
-      'monster': '🐉 Monster'
+      'monster': '🐉 Monster',
+      'spell': '✨ Spell'
     };
     return names[type] || type;
   },

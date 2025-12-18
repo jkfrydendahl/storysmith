@@ -9,6 +9,7 @@ from promts.organization import generate_organization
 from promts.region import generate_region
 from promts.weather import generate_weather
 from promts.monster import generate_monster
+from promts.spell import generate_spell
 
 app = typer.Typer()
 
@@ -70,6 +71,12 @@ def weather(weather_type: str = "", severity: str = "", season: str = "", enviro
 def monster(monster_type: str = "", size: str = "", behavior: str = "", habitat: str = "", genre: str = ""):
     """Generate a monster or creature with specified traits. Leave parameters empty for complete randomization. Type could be beast, dragon, undead, aberration, etc."""
     result = generate_monster(monster_type, size, behavior, habitat, genre)
+    print("\n" + result)
+
+@app.command()
+def spell(effect: str = "", power_level: str = "", school: str = "", casting_method: str = "", genre: str = ""):
+    """Generate a spell or magical ability with specified traits. Leave parameters empty for complete randomization. Effect could be damage, protection, control, healing, etc."""
+    result = generate_spell(effect, power_level, school, casting_method, genre)
     print("\n" + result)
 
 if __name__ == "__main__":

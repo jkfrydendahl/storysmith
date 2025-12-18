@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spell Generator - Storysmith</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>✨ Spell Generator</h1>
+      
+      <div class="tip">
+        Fill in any fields you want to customize, or leave blank for random results.
+      </div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="effect">Effect</label>
+          <input type="text" id="effect" placeholder="damage, protection, control, enhancement, healing, summoning, etc.">
+        </div>
+        
+        <div>
+          <label for="power_level">Power Level</label>
+          <input type="text" id="power_level" placeholder="cantrip, low, moderate, high, ultimate, legendary, etc.">
+        </div>
+        
+        <div>
+          <label for="school">School</label>
+          <input type="text" id="school" placeholder="fire, ice, lightning, nature, shadow, light, arcane, necromancy, etc.">
+        </div>
+        
+        <div>
+          <label for="casting_method">Casting Method</label>
+          <input type="text" id="casting_method" placeholder="instant, ritual, channeled, concentration, triggered, etc.">
+        </div>
+        
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, sci-fi, horror, steampunk, modern, etc.">
+        </div>
+      </div>
+      
+      <button class="generate-btn" onclick="generateSpell()" id="generateBtn">
+        Generate Spell
+      </button>
+      
+      <div class="output waiting" id="output">
+        Waiting for input... Click "Generate Spell" to create a magical ability.
+      </div>
+    </div>
+
+    <script src="js/history.js"></script>
+    <script>
+      async function generateSpell() {
+        const effect = document.getElementById('effect').value;
+        const powerLevel = document.getElementById('power_level').value;
+        const school = document.getElementById('school').value;
+        const castingMethod = document.getElementById('casting_method').value;
+        const genre = document.getElementById('genre').value;
+        const output = document.getElementById('output');
+        const button = document.getElementById('generateBtn');
+
+        // Set loading state
+        output.className = 'output loading';
+        output.textContent = "🎲 Weaving magical energies...";
+        button.disabled = true;
+        button.textContent = "Generating...";
+
+        try {
+          const params = new URLSearchParams({ 
+            effect: effect || '', 
+            power_level: powerLevel || '', 
+            school: school || '', 
+            casting_method: castingMethod || '', 
+            genre: genre || '' 
+          });
+          
+          const response = await fetch(`http://localhost:8000/spell?${params}`);
+          
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            const errorMessage = errorData?.detail || `HTTP ${response.status}: ${response.statusText}`;
+            throw new Error(errorMessage);
+          }
+          
+          const data = await response.json();
+          output.className = 'output';
+          output.textContent = data.spell;
+          
+          // Save to history
+          HistoryManager.save('spell', {
+            effect: effect,
+            power_level: powerLevel,
+            school: school,
+            casting_method: castingMethod,
+            genre: genre
+          }, data.spell);
+          
+        } catch (error) {
+          output.className = 'output error';
+          output.textContent = `❌ ${error.message}`;
+          console.error('Generation error:', error);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Spell";
+        }
+      }
+      
+      // Add enter key support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !document.getElementById('generateBtn').disabled) {
+          generateSpell();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -17,6 +17,7 @@ from promts.organization import generate_organization
 from promts.region import generate_region
 from promts.weather import generate_weather
 from promts.monster import generate_monster
+from promts.spell import generate_spell
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -310,6 +311,24 @@ def get_monster(
     genre = validate_input(genre, field_name="Genre")
     result = generate_monster(monster_type, size, behavior, habitat, genre)
     return {"monster": result}
+
+@app.get("/spell")
+def get_spell(
+    request: Request,
+    effect: str = Query(""),
+    power_level: str = Query(""),
+    school: str = Query(""),
+    casting_method: str = Query(""),
+    genre: str = Query("")
+):
+    check_rate_limit(request.client.host)
+    effect = validate_input(effect, field_name="Effect")
+    power_level = validate_input(power_level, field_name="Power level")
+    school = validate_input(school, field_name="School")
+    casting_method = validate_input(casting_method, field_name="Casting method")
+    genre = validate_input(genre, field_name="Genre")
+    result = generate_spell(effect, power_level, school, casting_method, genre)
+    return {"spell": result}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
