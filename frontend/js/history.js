@@ -100,9 +100,10 @@ const HistoryManager = {
       'region': '🗺️ Region',
       'weather': '🌤️ Weather',
       'monster': '🐉 Monster',
-      'spell': '✨ Spell'
+      'spell': '✨ Spell',
+      'deity': '⚡ Deity'
     };
-    return names[type] || type;
+    return typeMap[type] || type;
   },
 
   // Format timestamp for display

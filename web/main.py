@@ -18,6 +18,7 @@ from promts.region import generate_region
 from promts.weather import generate_weather
 from promts.monster import generate_monster
 from promts.spell import generate_spell
+from promts.deity import generate_deity
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -114,6 +115,9 @@ async def root():
         "- '/organization' - Generate organizations\n"
         "- '/region' - Generate regions\n"
         "- '/weather' - Generate weather\n"
+        "- '/monster' - Generate monsters\n"
+        "- '/spell' - Generate spells\n"
+        "- '/deity' - Generate deities\n"
         "\n"
         "Frontend available at: /static/index.html\n"
     )
@@ -329,6 +333,24 @@ def get_spell(
     genre = validate_input(genre, field_name="Genre")
     result = generate_spell(effect, power_level, school, casting_method, genre)
     return {"spell": result}
+
+@app.get("/deity")
+def get_deity(
+    request: Request,
+    domain: str = Query(""),
+    power_level: str = Query(""),
+    aspect: str = Query(""),
+    manifestation: str = Query(""),
+    genre: str = Query("")
+):
+    check_rate_limit(request.client.host)
+    domain = validate_input(domain, field_name="Domain")
+    power_level = validate_input(power_level, field_name="Power level")
+    aspect = validate_input(aspect, field_name="Aspect")
+    manifestation = validate_input(manifestation, field_name="Manifestation")
+    genre = validate_input(genre, field_name="Genre")
+    result = generate_deity(domain, power_level, aspect, manifestation, genre)
+    return {"deity": result}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)

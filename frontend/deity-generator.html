@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deity Generator - Storysmith</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="back-link">
+        <a href="index.html">← Back to Storysmith</a>
+      </div>
+      
+      <h1>⚡ Deity Generator</h1>
+      
+      <div class="tip">
+        Fill in any fields you want to customize, or leave blank for random results.
+      </div>
+      
+      <div class="form-grid">
+        <div>
+          <label for="domain">Domain</label>
+          <input type="text" id="domain" placeholder="war, nature, death, knowledge, love, trickery, storms, forge, etc.">
+        </div>
+        
+        <div>
+          <label for="power_level">Power Level</label>
+          <input type="text" id="power_level" placeholder="lesser deity, major deity, demigod, primordial, pantheon leader, etc.">
+        </div>
+        
+        <div>
+          <label for="aspect">Aspect</label>
+          <input type="text" id="aspect" placeholder="benevolent, wrathful, neutral, capricious, compassionate, enigmatic, etc.">
+        </div>
+        
+        <div>
+          <label for="manifestation">Manifestation</label>
+          <input type="text" id="manifestation" placeholder="visions, avatars, miracles, omens, silent, distant, active, embodied, etc.">
+        </div>
+        
+        <div>
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="fantasy, mythology, sci-fi, modern, horror, etc.">
+        </div>
+      </div>
+      
+      <button class="generate-btn" onclick="generateDeity()" id="generateBtn">
+        Generate Deity
+      </button>
+      
+      <div class="output waiting" id="output">
+        Waiting for input... Click "Generate Deity" to create a divine entity.
+      </div>
+    </div>
+
+    <script src="js/history.js"></script>
+    <script>
+      async function generateDeity() {
+        const domain = document.getElementById('domain').value;
+        const powerLevel = document.getElementById('power_level').value;
+        const aspect = document.getElementById('aspect').value;
+        const manifestation = document.getElementById('manifestation').value;
+        const genre = document.getElementById('genre').value;
+        const output = document.getElementById('output');
+        const button = document.getElementById('generateBtn');
+
+        // Set loading state
+        output.className = 'output loading';
+        output.textContent = "🎲 Invoking divine presence...";
+        button.disabled = true;
+        button.textContent = "Generating...";
+
+        try {
+          const params = new URLSearchParams({ 
+            domain: domain || '', 
+            power_level: powerLevel || '', 
+            aspect: aspect || '', 
+            manifestation: manifestation || '', 
+            genre: genre || '' 
+          });
+          
+          const response = await fetch(`http://localhost:8000/deity?${params}`);
+          
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            const errorMessage = errorData?.detail || `HTTP ${response.status}: ${response.statusText}`;
+            throw new Error(errorMessage);
+          }
+          
+          const data = await response.json();
+          output.className = 'output';
+          output.textContent = data.deity;
+          
+          // Save to history
+          HistoryManager.save('deity', {
+            domain: domain,
+            power_level: powerLevel,
+            aspect: aspect,
+            manifestation: manifestation,
+            genre: genre
+          }, data.deity);
+          
+        } catch (error) {
+          output.className = 'output error';
+          output.textContent = `❌ ${error.message}`;
+          console.error('Generation error:', error);
+        } finally {
+          // Reset button state
+          button.disabled = false;
+          button.textContent = "Generate Deity";
+        }
+      }
+      
+      // Add enter key support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !document.getElementById('generateBtn').disabled) {
+          generateDeity();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -94,4 +94,4 @@ Generators:
 - [x] Weather
 - [x] Monsters/Creatures
 - [x] Spells/Magic
-- [ ] Deities/Pantheons
+- [x] Deities

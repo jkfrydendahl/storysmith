@@ -10,6 +10,7 @@ from promts.region import generate_region
 from promts.weather import generate_weather
 from promts.monster import generate_monster
 from promts.spell import generate_spell
+from promts.deity import generate_deity
 
 app = typer.Typer()
 
@@ -77,6 +78,12 @@ def monster(species: str = "", size: str = "", behavior: str = "", habitat: str 
 def spell(effect: str = "", power_level: str = "", school: str = "", casting_method: str = "", genre: str = ""):
     """Generate a spell or magical ability with specified traits. Leave parameters empty for complete randomization. Effect could be damage, protection, control, healing, etc."""
     result = generate_spell(effect, power_level, school, casting_method, genre)
+    print("\n" + result)
+
+@app.command()
+def deity(domain: str = "", power_level: str = "", aspect: str = "", manifestation: str = "", genre: str = ""):
+    """Generate a deity or divine entity with specified traits. Leave parameters empty for complete randomization. Domain could be war, nature, death, knowledge, love, etc."""
+    result = generate_deity(domain, power_level, aspect, manifestation, genre)
     print("\n" + result)
 
 if __name__ == "__main__":
