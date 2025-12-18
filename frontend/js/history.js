@@ -91,7 +91,7 @@ const HistoryManager = {
   getTypeDisplayName(type) {
     const names = {
       'character': '👤 Character',
-      'location': '🗺️ Location',
+      'location': '📍 Location',
       'item': '⚔️ Item',
       'treasure': '🏆 Treasure',
       'adventure': '🗡️ Adventure',
