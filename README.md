@@ -93,5 +93,5 @@ Generators:
 - [x] Regions
 - [x] Weather
 - [x] Monsters/Creatures
-- [ ] Spells/Magic
+- [x] Spells/Magic
 - [ ] Deities/Pantheons
